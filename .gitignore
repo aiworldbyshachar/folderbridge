@@ -1,0 +1,20 @@
+node_modules/
+dist/
+dmg/
+*.log
+.DS_Store
+.env
+.claude/
+
+# local working files: marketing images and the CLI demo folders
+marketing/
+dev/sandbox/
+
+# demo video project: renders, previews and generated agent notes stay local
+video/node_modules/
+video/renders/
+video/.hyperframes/
+video/.cache/
+video/AGENTS.md
+video/CLAUDE.md
+video/.thumbnails/

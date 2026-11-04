@@ -1,0 +1,80 @@
+{
+  "name": "folderbridge",
+  "productName": "FolderBridge",
+  "version": "0.1.0",
+  "description": "Keep one folder identical on your Mac and your PC over the home network - no cloud, no account",
+  "main": "src/main/main.js",
+  "author": "aiworldbyshachar",
+  "homepage": "https://aiworldbyshachar.github.io/folderbridge/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aiworldbyshachar/folderbridge.git"
+  },
+  "bugs": "https://github.com/aiworldbyshachar/folderbridge/issues",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "icons": "node scripts/make-icons.js",
+    "test": "node --test test/*.test.js",
+    "demo": "node dev/cli.js",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac"
+  },
+  "devDependencies": {
+    "electron": "43.7.11",
+    "electron-builder": "26.17.0"
+  },
+  "build": {
+    "appId": "com.folderbridge.app",
+    "productName": "FolderBridge",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "FolderBridge-Windows-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "FolderBridge",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "category": "public.app-category.utilities",
+      "artifactName": "FolderBridge-macOS.${ext}",
+      "extendInfo": {
+        "LSAppNapIsDisabled": true,
+        "NSLocalNetworkUsageDescription": "FolderBridge keeps your FolderBridge folder in sync with your other computers on your home network."
+      }
+    },
+    "dmg": {
+      "title": "FolderBridge"
+    }
+  }
+}
