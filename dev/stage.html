@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FolderBridge product shots</title>
+<!--
+  Product shots for the website and README: the real renderer (with the mock
+  API) placed on the family's warm background, 1600x900.
+    dev/stage.html?shot=hero|pair|activity|conflict|safety|trash|paused|languages
+  Captured with headless Chrome by dev/shots.js.
+-->
+<style>
+  html, body { margin: 0; width: 1600px; height: 900px; overflow: hidden; }
+  body { background: radial-gradient(1200px 700px at 30% 20%, #f8f5ef, #efe9df); font-family: "Segoe UI", system-ui, sans-serif; }
+  .stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 70px; }
+  .win { position: relative; width: 520px; height: 740px; border-radius: 16px; overflow: hidden; background: #f5f5f8; box-shadow: 0 18px 40px rgba(60, 40, 20, 0.18), 0 2px 6px rgba(60, 40, 20, 0.08); transform: scale(1.06); }
+  .win iframe { border: 0; width: 520px; height: 740px; display: block; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 34px; }
+  .tag { font-size: 20px; font-weight: 600; color: #7a6a56; letter-spacing: 0.02em; }
+  .langs { display: flex; flex-direction: column; gap: 14px; }
+  .langs span { display: inline-block; padding: 12px 26px; border-radius: 999px; background: #fff; box-shadow: 0 6px 16px rgba(60, 40, 20, 0.1); font-size: 30px; font-weight: 600; color: #191923; }
+  .langs span.on { background: #5550d8; color: #fff; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<script>
+  const shot = new URLSearchParams(location.search).get('shot') || 'hero';
+  const R = '../src/renderer/index.html';
+  const SHOTS = {
+    hero: [{ q: 'self=mac', tag: 'On the Mac' }, { q: 'state=syncing', tag: 'On the PC' }],
+    pair: [{ q: 'self=mac', open: 'settings', scroll: 2, tag: 'Mac' }, { q: '', open: 'settings', scroll: 2, tag: 'PC' }],
+    // Single windows are shown zoomed in on the part that matters (s = scale,
+    // vh = how much of the window's height is visible).
+    activity: [{ q: '', s: 1.45, vh: 580 }],
+    conflict: [{ q: 'state=conflicts', s: 1.65, vh: 500 }],
+    safety: [{ q: 'state=confirm-delete', s: 1.65, vh: 500 }],
+    trash: [{ q: '', open: 'trash', s: 1.6, vh: 520 }],
+    paused: [{ q: 'state=paused', s: 1.65, vh: 500 }],
+    languages: [{ q: 'lang=he', s: 1.22, vh: 680 }, { langs: true }],
+  };
+  const stage = document.getElementById('stage');
+  for (const w of SHOTS[shot]) {
+    if (w.langs) {
+      const box = document.createElement('div');
+      box.className = 'langs';
+      box.innerHTML = ['English', 'עברית', 'Español', 'Français', 'Русский', 'العربية'].map((n, i) => `<span class="${i === 1 ? 'on' : ''}">${n}</span>`).join('');
+      stage.appendChild(box);
+      continue;
+    }
+    const win = document.createElement('div');
+    win.className = 'win';
+    if (w.s) {
+      win.style.height = `${w.vh}px`;
+      win.style.transform = `scale(${w.s})`;
+    }
+    const frame = document.createElement('iframe');
+    frame.src = `${R}?${w.q}`;
+    frame.onload = () => {
+      // Open a sheet once the app has rendered.
+      setTimeout(() => {
+        const doc = frame.contentDocument;
+        if (w.open === 'settings') doc.querySelector('#open-settings').click();
+        if (w.open === 'trash') doc.querySelector('#open-trash').click();
+        setTimeout(() => doc.activeElement && doc.activeElement.blur(), 200);
+        if (w.scroll) {
+          setTimeout(() => {
+            const body = doc.querySelector('#settings .sheet-body');
+            const group = doc.querySelectorAll('#settings .group')[w.scroll];
+            body.scrollTop = group.offsetTop - 8;
+          }, 400);
+        }
+      }, 400);
+    };
+    win.appendChild(frame);
+    if (w.tag) {
+      const col = document.createElement('div');
+      col.className = 'col';
+      const tag = document.createElement('div');
+      tag.className = 'tag';
+      tag.textContent = w.tag;
+      col.append(tag, win);
+      stage.appendChild(col);
+    } else {
+      stage.appendChild(win);
+    }
+  }
+</script>
+</body>
+</html>

@@ -2,13 +2,16 @@
 // Stand-in for the Electron preload API, used only when the renderer is opened
 // directly in a browser for design work. Not included in the built app.
 // ?state=syncing|alone|paused|conflicts|confirm-delete|unavailable|problems  ?empty  ?lang=he  ?platform=darwin
+// ?self=mac shows the same story from the Mac's side.
 (function () {
   const params = new URLSearchParams(location.search);
   const mode = params.get('state') || 'up-to-date';
-  const platform = params.get('platform') || 'win32';
+  const asMac = params.get('self') === 'mac';
+  const platform = params.get('platform') || (asMac ? 'darwin' : 'win32');
   const now = Date.now();
   const min = 60e3;
-  const MAC = 'MacBook Air';
+  const ME = asMac ? 'MacBook Air' : 'Shachar-PC';
+  const MAC = asMac ? 'Shachar-PC' : 'MacBook Air'; // the other computer
 
   let activity = [
     { ts: now - 0.4 * min, path: 'Q3 launch/launch-video.mp4', action: 'added', device: MAC, local: false, size: 2.4e9 },
@@ -21,6 +24,7 @@
     { ts: now - 27 * 60 * min, path: 'Photos/Wedding/IMG_2040.jpg', action: 'added', device: MAC, local: false, size: 2.9e6 },
     { ts: now - 3 * 24 * 60 * min, path: 'old-draft.md', action: 'restored', device: 'Shachar-PC', local: true, size: 3400 },
   ].map((e) => ({ exists: e.action !== 'deleted', ...e }));
+  if (asMac) activity = activity.map((e) => ({ ...e, local: !e.local, device: e.local ? MAC : ME }));
   if (params.has('empty')) activity = [];
 
   const trash = [
@@ -29,7 +33,7 @@
     { id: '1793600000000-cccccccc', path: 'Photos/IMG_1999.jpg', name: 'IMG_1999.jpg', at: now - 4 * 24 * 60 * min, size: 2.2e6, reason: 'conflict', byName: '' },
   ];
 
-  const peers = [{ id: 'm', name: MAC, platform: 'darwin', replica: 'r', address: '192.168.1.31', port: 47811, online: true, reachable: true, lastSeen: now, lastSyncAt: now - 20e3 }];
+  const peers = [{ id: 'm', name: MAC, platform: asMac ? 'win32' : 'darwin', replica: 'r', address: asMac ? '192.168.1.24' : '192.168.1.31', port: 47811, online: true, reachable: true, lastSeen: now, lastSyncAt: now - 20e3 }];
   const status = {
     state: mode,
     folder: platform === 'darwin' ? '/Users/shachar/FolderBridge' : 'C:\\Users\\Shachar\\FolderBridge',
@@ -47,7 +51,7 @@
   let conflicts = [];
   const settings = {
     language: params.get('lang') || 'en',
-    deviceName: 'Shachar-PC',
+    deviceName: ME,
     code: 'K7QM-4XRT-P9WE',
     folder: status.folder,
     conflictMode: 'ask',
@@ -92,7 +96,7 @@
       isDefaultFolder: true,
       defaultFolder: status.folder,
       port: 47811,
-      addresses: ['192.168.1.24'],
+      addresses: [asMac ? '192.168.1.31' : '192.168.1.24'],
       listenError: null,
       loginStatus: null,
       dataDir: 'C:\\Users\\Shachar\\AppData\\Roaming\\FolderBridge',

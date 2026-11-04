@@ -31,7 +31,7 @@ test('short hyphens only: no em or en dashes in any string', () => {
       for (const s of flat(msg)) assert.ok(!/[–—]/.test(s), `${code}.${key} has a long dash: ${s}`);
     }
   }
-  for (const file of ['src/renderer/index.html', 'src/renderer/app.js', 'src/main/main.js']) {
+  for (const file of ['src/renderer/index.html', 'src/renderer/app.js', 'src/main/main.js', 'README.md', 'README.he.md', 'docs/index.html']) {
     const text = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
     assert.ok(!/[–—]/.test(text), `${file} has a long dash`);
   }
