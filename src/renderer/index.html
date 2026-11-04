@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FolderBridge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img src="../../assets/icon-128.png" alt="" width="26" height="26">
+        <span>FolderBridge</span>
+      </div>
+      <button class="status" id="status" type="button" data-i18n-title="connectionStatus">
+        <span class="dot"></span><span class="status-label" data-i18n="connecting"></span>
+      </button>
+      <button class="icon-btn" id="open-trash" type="button" data-i18n-title="trash" data-icon="trash"></button>
+      <button class="icon-btn" id="open-settings" type="button" data-i18n-title="settings" data-icon="settings"></button>
+    </header>
+
+    <section class="folder-card" id="folder-card">
+      <div class="folder-head">
+        <span class="folder-icon" data-icon="folder"></span>
+        <div class="folder-text">
+          <b id="folder-name">FolderBridge</b>
+          <small id="folder-path" dir="ltr"></small>
+        </div>
+        <button class="btn primary" id="open-folder" type="button" data-i18n="openFolder"></button>
+      </div>
+      <div class="sync-line" id="sync-line">
+        <span class="sync-icon"></span>
+        <span class="sync-text"><b></b><small></small></span>
+      </div>
+      <div class="progress" id="progress" hidden><span></span></div>
+      <div class="devices" id="devices"></div>
+    </section>
+
+    <div class="banners" id="banners"></div>
+
+    <div class="searchbar">
+      <span class="search-icon" data-icon="search"></span>
+      <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" data-i18n-aria="search" autocomplete="off" spellcheck="false">
+    </div>
+    <nav class="filters" id="filters" data-i18n-aria="filtersLabel"></nav>
+    <main class="list" id="list" data-i18n-aria="activityLabel"></main>
+
+    <footer class="footer">
+      <span id="count"></span>
+      <span id="shortcut-hint"></span>
+    </footer>
+  </div>
+
+  <section class="sheet" id="trash" hidden data-i18n-aria="trash">
+    <header class="sheet-head">
+      <button class="icon-btn flip-ltr" id="close-trash" type="button" data-i18n-title="back" data-icon="back"></button>
+      <h2 data-i18n="trash"></h2>
+    </header>
+    <div class="sheet-body">
+      <p class="help" data-i18n="trashHelp"></p>
+      <div class="trash-list" id="trash-list"></div>
+      <button class="link" id="open-trash-folder" type="button" data-i18n="openTrashFolder"></button>
+    </div>
+  </section>
+
+  <section class="sheet" id="settings" hidden data-i18n-aria="settings">
+    <header class="sheet-head">
+      <button class="icon-btn flip-ltr" id="close-settings" type="button" data-i18n-title="back" data-icon="back"></button>
+      <h2 data-i18n="settings"></h2>
+    </header>
+
+    <div class="sheet-body">
+      <section class="group">
+        <h3 data-i18n="groupGeneral"></h3>
+        <label class="field">
+          <span data-i18n="language"></span>
+          <select id="language"></select>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" data-setting="openAtLogin">
+          <span class="track"></span>
+          <span class="toggle-text"><b data-i18n="loginTitle"></b><small id="login-hint"></small></span>
+        </label>
+        <p class="msg error" id="login-approval" hidden data-i18n="loginNeedsApproval"></p>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="groupFolder"></h3>
+        <div class="path-row">
+          <code id="folder-setting" dir="ltr"></code>
+          <button class="btn" id="change-folder" type="button" data-i18n="changeFolder"></button>
+        </div>
+        <p class="msg" id="folder-msg" hidden></p>
+        <button class="link" id="reset-folder" type="button" data-i18n="useDefaultFolder" hidden></button>
+        <p class="help" data-i18n="folderHelp"></p>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="groupConnect"></h3>
+        <p class="help" data-i18n-html="connectHelp"></p>
+        <div class="code-row">
+          <code id="code" dir="ltr"></code>
+          <button class="btn" id="copy-code" type="button" data-i18n="copy"></button>
+        </div>
+        <label class="field">
+          <span data-i18n="codeFromOther"></span>
+          <div class="field-row">
+            <input id="code-input" dir="ltr" placeholder="XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
+            <button class="btn primary" id="apply-code" type="button" data-i18n="apply"></button>
+          </div>
+        </label>
+        <p class="msg" id="code-msg" hidden></p>
+        <button class="link" id="regen-code" type="button" data-i18n="newCode"></button>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="groupDevices"></h3>
+        <ul class="peer-list" id="peer-list"></ul>
+        <p class="help"><span data-i18n="myAddress"></span> <span id="my-addr" dir="ltr"></span></p>
+        <details class="manual">
+          <summary data-i18n="notShowing"></summary>
+          <ol class="tips">
+            <li data-i18n="tip1"></li>
+            <li data-i18n="tip2"></li>
+            <li data-i18n="tip3"></li>
+            <li data-i18n="tip4"></li>
+          </ol>
+          <div class="field-row">
+            <input id="peer-input" dir="ltr" placeholder="192.168.1.20" autocomplete="off" spellcheck="false">
+            <button class="btn" id="add-peer" type="button" data-i18n="add"></button>
+          </div>
+          <p class="msg" id="peer-msg" hidden></p>
+          <ul class="manual-list" id="manual-list"></ul>
+        </details>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="groupConflicts"></h3>
+        <p class="help" data-i18n="conflictHelp"></p>
+        <div class="choices" id="conflict-mode" role="radiogroup" data-i18n-aria="groupConflicts">
+          <label class="choice">
+            <input type="radio" name="conflictMode" value="ask">
+            <span class="toggle-text"><b data-i18n="modeAsk"></b><small data-i18n="modeAskHint"></small></span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="conflictMode" value="both">
+            <span class="toggle-text"><b data-i18n="modeBoth"></b><small data-i18n="modeBothHint"></small></span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="conflictMode" value="newest">
+            <span class="toggle-text"><b data-i18n="modeNewest"></b><small data-i18n="modeNewestHint"></small></span>
+          </label>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" data-setting="notifyConflicts">
+          <span class="track"></span>
+          <span class="toggle-text"><b data-i18n="notifyTitle"></b><small data-i18n="notifyHint"></small></span>
+        </label>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="groupThisDevice"></h3>
+        <label class="field">
+          <span data-i18n="deviceName"></span>
+          <input id="device-name" maxlength="60" autocomplete="off">
+        </label>
+        <label class="field">
+          <span data-i18n="shortcutLabel"></span>
+          <input id="shortcut" readonly dir="ltr" data-i18n-placeholder="shortcutPlaceholder">
+        </label>
+        <p class="msg" id="shortcut-msg" hidden></p>
+        <button class="link" id="clear-shortcut" type="button" data-i18n="shortcutRemove" hidden></button>
+        <label class="toggle">
+          <input type="checkbox" data-setting="paused">
+          <span class="track"></span>
+          <span class="toggle-text"><b data-i18n="pausedTitle"></b><small data-i18n="pausedHint"></small></span>
+        </label>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="groupAdvanced"></h3>
+        <p class="help" data-i18n="advancedHelp"></p>
+        <div class="row-actions">
+          <button class="btn" id="open-data" type="button" data-i18n="openDataFolder"></button>
+          <button class="btn" id="sync-now" type="button" data-i18n="syncNow"></button>
+        </div>
+      </section>
+
+      <p class="about">FolderBridge <span id="version"></span></p>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="../shared/i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

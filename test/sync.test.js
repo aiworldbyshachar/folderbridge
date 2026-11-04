@@ -185,6 +185,32 @@ test('many deletions at once wait for an OK; "keep my files" brings them back ev
   }
 });
 
+test('one OK covers a deletion burst that arrives in pieces', async () => {
+  const base = fs.mkdtempSync(path.join(require('os').tmpdir(), 'folderbridge-burst-'));
+  const b = makeDevice(base, 'B', { code: generateCode() });
+  for (let i = 0; i < 60; i++) b.write(`burst/${i}.txt`, `file ${i}`);
+  try {
+    await b.start();
+    await waitFor(() => b.getStatus().files === 60, 10000, '60 files indexed');
+    // Tombstones from another computer, the way they'd arrive in two pushes.
+    const peer = '99999999-9999-4999-8999-999999999999';
+    const tomb = (i) => {
+      const local = b.index.get(`burst/${i}.txt`);
+      return { ...b.index.toWire(local), deleted: true, vv: { ...local.vv, [peer]: 1 }, by: peer, byName: 'A', ts: Date.now() };
+    };
+    b.receive([...Array(40).keys()].map(tomb), { replica: peer, name: 'A' });
+    assert.strictEqual(b.getStatus().holdDeletes, 40);
+    b.approveDeletes();
+    await waitFor(() => b.getStatus().files === 20, 10000, 'first part deleted');
+    b.receive([...Array(20).keys()].map((i) => tomb(i + 40)), { replica: peer, name: 'A' });
+    assert.strictEqual(b.getStatus().holdDeletes, 0, 'the rest of the burst needs no second OK');
+    await waitFor(() => b.getStatus().files === 0, 10000, 'all deleted');
+    assert.strictEqual(b.getTrash().length, 60, 'every one of them is in the trash');
+  } finally {
+    await stopAll(b);
+  }
+});
+
 test('a big file resumes after a dropped connection; damaged pieces are refused', async () => {
   const { a, b } = makePair();
   const data = crypto.randomBytes(6 * 1024 * 1024 + 123);

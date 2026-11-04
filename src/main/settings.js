@@ -24,6 +24,7 @@ const DEFAULTS = {
   openAtLogin: true,
   paused: false,
   notifyConflicts: true,
+  shortcut: '', // none by default: people work in Finder / Explorer, not in this window
   manualPeers: [],
   knownPeers: [],
 };

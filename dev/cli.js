@@ -74,12 +74,14 @@ sync.on('peers', (peers, foreign) => {
   for (const f of foreign) say(`Found "${f.name}" with a different code`);
 });
 
-// Print new activity as it happens.
+// Print new activity as it happens (not the history from earlier runs).
+const startedAt = Date.now();
 let seen = 0;
 setInterval(() => {
   const items = sync.activity.items;
   for (; seen < items.length; seen++) {
     const e = items[seen];
+    if (e.ts < startedAt) continue;
     const where = e.local ? 'this computer' : `from ${e.device}`;
     const mark = { added: '+', changed: '~', deleted: '-', moved: '>', conflict: '!', restored: '<' }[e.action];
     const extra = e.action === 'moved' ? ` (was ${e.from})` : e.action === 'deleted' && !e.local ? ' - kept in the trash' : '';

@@ -35,6 +35,7 @@ const MASS_DELETE_FILES = 50;
 const MASS_DELETE_SHARE = 0.2;
 const MASS_DELETE_MIN = 10;
 const RECENT_DELETE_WINDOW = 60000;
+const APPROVAL_WINDOW = 60000; // an OK covers the rest of the same burst
 const FREE_SPACE_MARGIN = 64 * 1024 * 1024;
 const MAX_WANTS = 20;
 const MAX_UPLOADS = 4;
@@ -87,6 +88,7 @@ class FolderSync extends EventEmitter {
     this.verified = new Set(); // hashes of complete, checked .part files
     this.uploads = new Set();
     this.deleteApproved = new Set();
+    this.approveUntil = 0;
     this.holdDeletes = 0;
     this.recentDeletes = [];
     this.diskFull = false;
@@ -283,10 +285,19 @@ class FolderSync extends EventEmitter {
     return this.trash.list();
   }
 
+  // Where a file lives on this disk (for "Show in folder"), or null.
+  pathOf(key) {
+    if (!names.isSafeKey(key)) return null;
+    const abs = this._pathOrNull(key);
+    return abs && fs.existsSync(abs) ? abs : null;
+  }
+
   // ---------- user actions ----------
 
-  // The many deletions that were held: go ahead.
+  // The many deletions that were held: go ahead. The OK also covers the rest
+  // of the same burst, which may still be arriving.
   approveDeletes() {
+    this.approveUntil = Date.now() + APPROVAL_WINDOW;
     for (const [key, list] of this.needs) {
       if (this._isDeletion(key, list[0])) {
         this.deleteApproved.add(key);
@@ -623,9 +634,13 @@ class FolderSync extends EventEmitter {
   }
 
   _updateDeleteHold() {
-    let count = 0;
-    for (const [key, list] of this.needs) if (this._isDeletion(key, list[0]) && !this.deleteApproved.has(key)) count++;
     const now = Date.now();
+    let count = 0;
+    for (const [key, list] of this.needs) {
+      if (!this._isDeletion(key, list[0]) || this.deleteApproved.has(key)) continue;
+      if (now < this.approveUntil) this.deleteApproved.add(key);
+      else count++;
+    }
     this.recentDeletes = this.recentDeletes.filter((t) => now - t < RECENT_DELETE_WINDOW);
     const total = count + this.recentDeletes.length;
     const live = this.index.liveCount();
@@ -707,7 +722,8 @@ class FolderSync extends EventEmitter {
         const target = this._renameTarget(key, local);
         if (target && (await this._move(key, c, target.key, target.c))) return;
         this.trash.put(abs, { path: key, reason: 'deleted', byName: remote.byName });
-        this.recentDeletes.push(Date.now());
+        // Deletions the user already said OK to don't count towards the next "too many".
+        if (!this.deleteApproved.has(key)) this.recentDeletes.push(Date.now());
         this.activity.add({ path: key, action: 'deleted', device: remote.byName, local: false, size: local.size });
       }
       this.index.adopt(remote, undefined, undefined, c.from);
