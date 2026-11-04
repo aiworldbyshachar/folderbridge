@@ -1,0 +1,138 @@
+<template>
+  <link rel="stylesheet" href="assets/ui.css" />
+  <style>
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI"); font-weight: 400; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Semibold"); font-weight: 600; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Bold"); font-weight: 700; }
+    @font-face { font-family: "CB Mono"; src: local("Consolas"); font-weight: 400; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f5f5f8; }
+    .p-win { position: absolute; top: 150px; width: 500px; transform-origin: 0 0; }
+    #p-pc { left: 70px; }
+    #p-mac { left: 1000px; }
+    .p-tag { position: absolute; top: 68px; display: flex; align-items: center; gap: 14px; font: 600 34px "CB Sans"; color: #676778; }
+    .p-tag svg { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    .p-ring { position: absolute; inset: -4px; border-radius: 13px; border: 3px solid #5550d8; }
+    .p-slot { position: relative; }
+    .p-layer { position: absolute; left: 0; top: 0; right: 0; }
+    #p-net { position: absolute; inset: 0; }
+    .n-zone { position: absolute; left: 290px; top: 120px; width: 1340px; height: 680px; border-radius: 64px; border: 4px solid rgba(85, 80, 216, 0.55); background: rgba(85, 80, 216, 0.06); }
+    .n-laptop { position: absolute; left: 380px; top: 380px; width: 520px; }
+    .n-laptop .scr { width: 520px; height: 330px; border-radius: 16px 16px 4px 4px; background: #101113; border: 3px solid #c9ccd1; padding: 10px; }
+    .n-laptop .base { width: 600px; height: 16px; margin-left: -40px; border-radius: 2px 2px 12px 12px; background: linear-gradient(#d9dbdf, #b9bdc4); }
+    .n-mon { position: absolute; left: 1020px; top: 340px; width: 540px; }
+    .n-mon .scr { width: 540px; height: 320px; border-radius: 10px; background: #16171a; padding: 12px 12px 20px; }
+    .n-mon .neck { width: 44px; height: 54px; margin: 0 auto; background: #2c2e33; }
+    .n-mon .foot { width: 200px; height: 16px; margin: 0 auto; border-radius: 50%; background: #2a2c31; }
+    .mini { width: 100%; height: 100%; border-radius: 4px; background: #f5f5f8; padding: 26px 22px; font-family: "CB Sans"; }
+    .mini .row { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 24px; color: #191923; }
+    .mini .row img { width: 36px; height: 36px; }
+    .mini .pill { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; height: 46px; padding: 0 18px; border: 1px solid #e3e3eb; border-radius: 999px; background: #fff; font-size: 21px; color: #191923; white-space: nowrap; }
+    .mini .bar { height: 14px; border-radius: 7px; background: #e6e6ee; margin-top: 16px; }
+    #n-wifi { position: absolute; left: 880px; top: 150px; width: 160px; height: 140px; overflow: visible; }
+    #n-label { position: absolute; left: 0; right: 0; top: 860px; text-align: center; font-size: 84px; line-height: 1; }
+    #n-label span { display: inline-block; }
+  </style>
+
+  <div data-hf-id="hf-aowj" id="root" data-composition-id="pair" data-width="1920" data-height="1080">
+    <!-- the two Settings screens, as the app draws them (src/renderer/index.html) -->
+    <div data-hf-id="hf-djg8" id="p-apps">
+      <div data-hf-id="hf-pvjo" id="p-tag-pc" class="p-tag" style="left: 76px"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><rect data-hf-id="hf-w3u4" x="3" y="4" width="18" height="12" rx="1.5"/><path data-hf-id="hf-x8w8" d="M8.5 20h7M12 16v4"/></svg>Shachar-PC</div>
+      <div data-hf-id="hf-e4to" id="p-tag-mac" class="p-tag" style="left: 1006px"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><rect data-hf-id="hf-mz2z" x="4" y="5" width="16" height="11" rx="1.5"/><path data-hf-id="hf-7736" d="M2 19.5h20"/></svg>MacBook Air</div>
+
+      <div data-hf-id="hf-kths" id="p-pc" class="p-win cb cb-window">
+        <div data-hf-id="hf-mxjp" class="cb-sheet-head"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-2953" d="M19 12H5M11 6l-6 6 6 6"/></svg>Settings</div>
+        <div data-hf-id="hf-uve5" class="cb-group">
+          <h3 data-hf-id="hf-aybn">Connect your computers</h3>
+          <p data-hf-id="hf-kc2w" class="cb-help">Computers with the same <b data-hf-id="hf-mkf6">connection code</b> connect automatically when they’re on the same network. This is this computer’s code - enter it on the other one under “Code from another computer”.</p>
+          <div data-hf-id="hf-3mxc" class="cb-code-row"><div data-hf-id="hf-pr6d" class="p-slot" style="flex: 1"><div data-hf-id="hf-x1vw" class="cb-code">K7QM-4XRT-P9WE</div><div data-hf-id="hf-046e" id="p-ring" class="p-ring"></div></div><span data-hf-id="hf-63uk" class="cb-btn">Copy</span></div>
+        </div>
+        <div data-hf-id="hf-adcx" class="cb-group">
+          <h3 data-hf-id="hf-eou2">Computers</h3>
+          <div data-hf-id="hf-23rq" class="p-slot" style="height: 46px">
+            <div data-hf-id="hf-mg18" id="p-pc-empty" class="p-layer cb-empty">No computers found on the network yet. Make sure FolderBridge is open on the other one.</div>
+            <div data-hf-id="hf-slh9" id="p-pc-peer" class="p-layer cb-peer"><span data-hf-id="hf-8dw9" class="ic"><svg data-hf-id="hf-2man" viewBox="0 0 24 24"><rect data-hf-id="hf-tn4r" x="4" y="5" width="16" height="11" rx="1.5"/><path data-hf-id="hf-8686" d="M2 19.5h20"/></svg></span><span data-hf-id="hf-af47" class="who"><b data-hf-id="hf-z8qx">MacBook Air</b><small data-hf-id="hf-dwvx">192.168.1.31 · synced now</small></span><span data-hf-id="hf-keqf" class="cb-badge">Connected</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-1un8" id="p-mac" class="p-win cb cb-window">
+        <div data-hf-id="hf-gcy1" class="cb-sheet-head"><svg data-hf-id="hf-3t7q" viewBox="0 0 24 24"><path data-hf-id="hf-geef" d="M19 12H5M11 6l-6 6 6 6"/></svg>Settings</div>
+        <div data-hf-id="hf-bka0" class="cb-group">
+          <h3 data-hf-id="hf-pl1f">Connect your computers</h3>
+          <div data-hf-id="hf-vv6w" class="cb-code-row"><div data-hf-id="hf-hhuh" class="p-slot" style="flex: 1; height: 42px"><div data-hf-id="hf-itis" id="p-mac-old" class="p-layer cb-code" style="color: #9898a7">R3XN-8PLD-2WQH</div><div data-hf-id="hf-ggjv" id="p-mac-new" class="p-layer cb-code">K7QM-4XRT-P9WE</div></div><span data-hf-id="hf-iano" class="cb-btn">Copy</span></div>
+          <span data-hf-id="hf-3qy6" class="cb-label">Code from another computer</span>
+          <div data-hf-id="hf-t395" style="display: flex; gap: 8px"><div data-hf-id="hf-4bjh" id="p-input" class="cb-input focus"><span data-hf-id="hf-4sc5" id="p-typed"></span><span data-hf-id="hf-c09i" class="caret" style="height: 18px"></span></div><span data-hf-id="hf-hu5s" id="p-apply" class="cb-btn primary">Apply</span></div>
+          <p data-hf-id="hf-atqo" id="p-msg" class="cb-msg">Code updated. Looking for the other computer…</p>
+        </div>
+        <div data-hf-id="hf-b5yz" class="cb-group">
+          <h3 data-hf-id="hf-w7vi">Computers</h3>
+          <div data-hf-id="hf-ft6i" class="p-slot" style="height: 46px">
+            <div data-hf-id="hf-lq6e" id="p-mac-empty" class="p-layer cb-empty">No computers found on the network yet. Make sure FolderBridge is open on the other one.</div>
+            <div data-hf-id="hf-5vht" id="p-mac-peer" class="p-layer cb-peer"><span data-hf-id="hf-hovh" class="ic"><svg data-hf-id="hf-3ewp" viewBox="0 0 24 24"><rect data-hf-id="hf-ykuc" x="3" y="4" width="18" height="12" rx="1.5"/><path data-hf-id="hf-jq2o" d="M8.5 20h7M12 16v4"/></svg></span><span data-hf-id="hf-iy3r" class="who"><b data-hf-id="hf-lle9">Shachar-PC</b><small data-hf-id="hf-ciob">192.168.1.24 · synced now</small></span><span data-hf-id="hf-namv" class="cb-badge">Connected</span></div>
+          </div>
+        </div>
+      </div>
+
+      <svg data-hf-id="hf-0odm" id="p-cursor" class="cursor" viewBox="0 0 22 32" style="width: 44px; height: 64px"><path data-hf-id="hf-geat" d="M2 2 L2 26 L8 20 L12 30 L16 28 L12 18.5 L20 18.5 Z" fill="#111" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- the only rule: the same Wi-Fi -->
+    <div data-hf-id="hf-vmvl" id="p-net">
+      <div data-hf-id="hf-75py" id="n-zone" class="n-zone"></div>
+      <svg data-hf-id="hf-uyrh" id="n-wifi" viewBox="0 0 160 140">
+        <path data-hf-id="hf-dyxy" class="n-arc" d="M 10 52 A 100 100 0 0 1 150 52" pathLength="1" fill="none" stroke="#5550d8" stroke-width="14" stroke-linecap="round" stroke-dasharray="1 1"/>
+        <path data-hf-id="hf-g6kz" class="n-arc" d="M 34 80 A 66 66 0 0 1 126 80" pathLength="1" fill="none" stroke="#5550d8" stroke-width="14" stroke-linecap="round" stroke-dasharray="1 1"/>
+        <path data-hf-id="hf-9ntf" class="n-arc" d="M 58 106 A 32 32 0 0 1 102 106" pathLength="1" fill="none" stroke="#5550d8" stroke-width="14" stroke-linecap="round" stroke-dasharray="1 1"/>
+        <circle data-hf-id="hf-0rhk" id="n-dot" cx="80" cy="128" r="10" fill="#5550d8"/>
+      </svg>
+      <div data-hf-id="hf-r1j6" id="n-laptop" class="n-laptop"><div data-hf-id="hf-zn7g" class="scr"><div data-hf-id="hf-x34l" class="mini"><div data-hf-id="hf-c4t9" class="row"><img data-hf-id="hf-o86s" src="assets/img/icon-128.png" alt="" />FolderBridge</div><div data-hf-id="hf-a5fn" class="pill"><span data-hf-id="hf-v07c" class="cb-dot"></span>Connected to Shachar-PC</div><div data-hf-id="hf-zxzt" class="bar" style="width: 90%; margin-top: 30px"></div><div data-hf-id="hf-0r9x" class="bar" style="width: 70%"></div></div></div><div data-hf-id="hf-9327" class="base"></div></div>
+      <div data-hf-id="hf-d63k" id="n-mon" class="n-mon"><div data-hf-id="hf-fvlg" class="scr"><div data-hf-id="hf-mudl" class="mini"><div data-hf-id="hf-sacx" class="row"><img data-hf-id="hf-bjpo" src="assets/img/icon-128.png" alt="" />FolderBridge</div><div data-hf-id="hf-myv3" class="pill"><span data-hf-id="hf-xzy8" class="cb-dot"></span>Connected to MacBook Air</div><div data-hf-id="hf-ycvh" class="bar" style="width: 90%; margin-top: 30px"></div><div data-hf-id="hf-7akp" class="bar" style="width: 70%"></div></div></div><div data-hf-id="hf-iw3d" class="neck"></div><div data-hf-id="hf-mlgk" class="foot"></div></div>
+      <div data-hf-id="hf-49nr" id="n-label" class="display"><span data-hf-id="hf-giap" style="color: #5550d8">Same</span> <span data-hf-id="hf-gh65">Wi-Fi</span> <span data-hf-id="hf-5g69">network</span></div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Scene time = film time - 41.6
+    const S = 1.66;
+    gsap.set(["#p-pc", "#p-mac"], { scale: S, transformOrigin: "0 0" });
+    gsap.set(["#p-pc-peer", "#p-mac-peer", "#p-mac-new", "#p-msg", "#p-ring", "#p-net"], { opacity: 0 });
+    gsap.set("#p-cursor", { x: 1900, y: 1000 });
+    gsap.set(".n-arc", { strokeDashoffset: 1 });
+
+    // the two screens arrive, one from each side
+    tl.fromTo(["#p-pc", "#p-tag-pc"], { opacity: 0.35, x: -90 }, { opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, 0);
+    tl.fromTo(["#p-mac", "#p-tag-mac"], { opacity: 0.35, x: 90 }, { opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, 0);
+
+    // "one short code"
+    tl.fromTo("#p-ring", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 1.86);
+
+    // "Type it on the other computer"
+    const code = "K7QM-4XRT-P9WE";
+    const typed = { n: 0 };
+    const draw = () => { document.getElementById("p-typed").textContent = code.slice(0, Math.round(typed.n)); };
+    tl.fromTo(typed, { n: 0 }, { n: code.length, duration: 0.8, ease: "none", onUpdate: draw, onStart: draw }, 2.55);
+    tl.to("#p-cursor", { x: 1000 + 418 * S, y: 150 + 192 * S, duration: 0.55, ease: "expo.out" }, 3.15);
+    tl.to("#p-apply", { scale: 0.95, duration: 0.07, yoyo: true, repeat: 1 }, 3.7);
+    tl.to("#p-msg", { opacity: 1, duration: 0.2 }, 3.81);
+    tl.to("#p-mac-old", { opacity: 0, filter: "blur(6px)", duration: 0.15 }, 3.81);
+    tl.fromTo("#p-mac-new", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15 }, 3.9);
+    tl.to("#p-ring", { opacity: 0, duration: 0.3 }, 4.15);
+
+    // "...and they find each other"
+    tl.to(["#p-pc-empty", "#p-mac-empty"], { opacity: 0, duration: 0.12 }, 4.9);
+    tl.fromTo(["#p-pc-peer", "#p-mac-peer"], { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 4.95);
+    tl.fromTo("#p-apps .cb-badge", { scale: 0.6 }, { scale: 1, duration: 0.45, ease: "back.out(2)" }, 4.95);
+    tl.to("#p-cursor", { opacity: 0, duration: 0.2 }, 5.3);
+
+    // "The only rule: both on the same Wi-Fi"
+    tl.to("#p-apps", { opacity: 0, filter: "blur(8px)", scale: 0.96, transformOrigin: "50% 50%", duration: 0.25, ease: "power3.in" }, 6.45);
+    tl.set("#p-net", { opacity: 1 }, 6.7);
+    tl.fromTo(["#n-laptop", "#n-mon"], { opacity: 0, filter: "blur(8px)", y: 20 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.4, ease: "expo.out", stagger: 0.08 }, 6.7);
+    tl.fromTo("#n-zone", { opacity: 0, scale: 0.9, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, 6.9);
+    tl.fromTo("#n-dot", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 6.95);
+    tl.to(".n-arc", { strokeDashoffset: 0, duration: 0.45, ease: "power2.out", stagger: { each: 0.12, from: "end" } }, 7.05);
+    tl.fromTo("#n-label span", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.18 }, 8.3);
+    window.__timelines["pair"] = tl;
+  </script>
+</template>

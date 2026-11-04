@@ -1,0 +1,218 @@
+/* Shared kit for the FolderBridge film (started from the ClipBridge film's kit, so the
+   family looks the same): the desk world, the two computers, keycaps, the cursor, and a
+   copy of the real app's light-theme UI (src/renderer/style.css). The .cb-* classes are
+   the shared family UI pieces; .fb-* are FolderBridge's own. */
+
+/* Fonts: each scene declares "CB Sans" (local Segoe UI — what the app renders on Windows, with
+   Hebrew, Arabic and Cyrillic) and "CB Mono" (local Consolas) inline, where the compiler sees them. */
+
+.abs { position: absolute; }
+.sans { font-family: "CB Sans", sans-serif; }
+.display { font-family: "Outfit", "CB Sans", sans-serif; font-weight: 700; letter-spacing: -0.02em; color: #191923; }
+
+/* ---------- the desk world ---------- */
+.world-desk { position: absolute; inset: 0; overflow: hidden; background: #f1ece4; }
+.wall { position: absolute; left: -600px; right: -600px; top: -500px; bottom: -300px; background: radial-gradient(1400px 900px at 12% -10%, #fbf8f3 0%, #f3eee6 55%, #ebe4d9 100%); }
+.desk-top { position: absolute; left: -400px; right: -400px; top: 720px; height: 900px; background: linear-gradient(#e8dccb, #d9c8b1 60%, #cdb99f); }
+.desk-top::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: rgba(255, 255, 255, 0.55); }
+.grain { position: absolute; inset: 0; opacity: 0.05; pointer-events: none;
+  background-image: repeating-radial-gradient(circle at 17% 23%, #000 0 1px, transparent 1px 3px), repeating-radial-gradient(circle at 71% 61%, #000 0 1px, transparent 1px 4px); }
+.stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+
+/* MacBook Air, front view. Lid 740x462 at (150,258); base 860x22 at (90,720). */
+.mac-lid { position: absolute; left: 150px; top: 258px; width: 740px; height: 462px; border-radius: 22px 22px 8px 8px;
+  background: #101113; border: 3px solid #c9ccd1; box-shadow: 0 30px 50px rgba(60, 40, 20, 0.18); }
+.mac-screen { position: absolute; left: 13px; top: 15px; right: 13px; bottom: 13px; border-radius: 6px; overflow: hidden; }
+.mac-notch { position: absolute; left: 50%; top: 0; width: 110px; height: 14px; margin-left: -55px; background: #101113; border-radius: 0 0 8px 8px; }
+.mac-base { position: absolute; left: 90px; top: 720px; width: 860px; height: 22px; border-radius: 3px 3px 16px 16px;
+  background: linear-gradient(#d9dbdf, #b9bdc4); box-shadow: 0 18px 30px rgba(60, 40, 20, 0.22); }
+.mac-scoop { position: absolute; left: 50%; top: 0; width: 150px; height: 8px; margin-left: -75px; background: #aeb2b9; border-radius: 0 0 10px 10px; }
+
+/* 27" monitor. Bezel 800x460 at (1010,160); neck and foot below. */
+.pc-bezel { position: absolute; left: 1010px; top: 160px; width: 800px; height: 460px; border-radius: 14px; background: #16171a;
+  box-shadow: 0 30px 50px rgba(60, 40, 20, 0.2); }
+.pc-screen { position: absolute; left: 16px; top: 16px; right: 16px; bottom: 26px; border-radius: 3px; overflow: hidden; }
+.pc-neck { position: absolute; left: 1380px; top: 618px; width: 60px; height: 92px; background: linear-gradient(90deg, #2c2e33, #3a3d43 50%, #2a2c31); }
+.pc-foot { position: absolute; left: 1265px; top: 702px; width: 290px; height: 24px; border-radius: 50%; background: #2a2c31; box-shadow: 0 14px 22px rgba(60, 40, 20, 0.25); }
+
+/* Screen contents */
+.mac-wall { position: absolute; inset: 0; background: radial-gradient(900px 600px at 80% 100%, #f2c8a8 0%, #c9b8de 45%, #9fb6e0 100%); }
+.mac-menubar { position: absolute; left: 0; right: 0; top: 0; height: 22px; background: rgba(255, 255, 255, 0.72);
+  font: 600 12px "CB Sans"; color: #1d1d1f; display: flex; align-items: center; gap: 16px; padding: 0 14px; }
+.mac-menubar .right { margin-left: auto; display: flex; gap: 12px; align-items: center; font-weight: 400; }
+.mac-menubar .tray { width: 15px; height: 15px; border-radius: 3px; }
+.pc-wall { position: absolute; inset: 0; background: radial-gradient(700px 500px at 30% 20%, #f4f8fd 0%, #dbe7f5 55%, #c7d8ee 100%); }
+.pc-taskbar { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; background: rgba(243, 243, 243, 0.94); border-top: 1px solid #dcdcdc;
+  display: flex; align-items: center; justify-content: center; gap: 8px; font: 400 11px "CB Sans"; color: #1b1b1b; }
+.pc-taskbar i { width: 20px; height: 20px; border-radius: 5px; background: #cfd8e6; display: block; }
+.pc-taskbar i:nth-child(1) { background: #2f6fd6; }
+.pc-taskbar i:nth-child(2) { background: #f2b33d; }
+.pc-taskbar i:nth-child(3) { background: #5f6b7a; }
+.pc-taskbar .clock { position: absolute; right: 12px; text-align: right; line-height: 1.15; }
+
+/* Generic windows inside the screens */
+.win { position: absolute; background: #fff; border-radius: 10px; box-shadow: 0 8px 26px rgba(20, 20, 40, 0.18); overflow: hidden; font-family: "CB Sans"; color: #1d1d1f; }
+.win-bar { height: 28px; background: #f4f4f6; border-bottom: 1px solid #e6e6ea; display: flex; align-items: center; gap: 6px; padding: 0 10px; font: 600 12px "CB Sans"; color: #555; }
+.dots { display: flex; gap: 6px; margin-right: 8px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; display: block; background: #ff5f57; }
+.dots i:nth-child(2) { background: #febc2e; }
+.dots i:nth-child(3) { background: #28c840; }
+.win-bar.pcbar { background: #fff; justify-content: space-between; color: #333; }
+.field-line { display: flex; gap: 10px; padding: 7px 14px; border-bottom: 1px solid #efeff2; font: 400 13px "CB Sans"; color: #333; }
+.field-line b { font-weight: 600; color: #888; width: 56px; }
+.link-text { color: #2a62d4; text-decoration: underline; text-underline-offset: 2px; }
+.sel { background: #b8d3ff; border-radius: 2px; }
+.caret { display: inline-block; width: 2px; height: 1.05em; background: #1d1d1f; vertical-align: -0.15em; margin-left: 1px; }
+.send-btn { display: inline-block; padding: 6px 16px; border-radius: 6px; background: #2f6fd6; color: #fff; font: 600 13px "CB Sans"; }
+
+/* ---------- objects that travel ---------- */
+.chip { position: absolute; display: flex; align-items: center; gap: 12px; padding: 14px 22px; border-radius: 14px; background: #191923; color: #fff;
+  font: 600 26px "CB Sans"; white-space: nowrap; box-shadow: 0 14px 30px rgba(25, 25, 35, 0.28); }
+.chip svg { width: 26px; height: 26px; flex: none; }
+.keys { position: absolute; display: flex; gap: 16px; }
+.key { min-width: 96px; height: 96px; padding: 0 22px; border-radius: 18px; background: #fdfdfe; border: 1px solid #e2e3e8; border-bottom: 5px solid #d3d4da;
+  display: flex; align-items: center; justify-content: center; font: 600 46px "CB Sans"; color: #191923; box-shadow: 0 12px 26px rgba(25, 25, 35, 0.16); }
+.mini-chart { position: relative; width: 100%; height: 100%; border-radius: 5px; background: #f3f4fb; overflow: hidden; }
+.mini-chart i { position: absolute; bottom: 8px; width: 16px; border-radius: 3px 3px 0 0; background: #5550d8; display: block; }
+.mini-chart i.b { background: #0e9f6e; }
+.cursor { position: absolute; width: 44px; height: 64px; left: 0; top: 0; z-index: 50; }
+
+/* ---------- the real app UI (light theme from src/renderer/style.css) ---------- */
+.cb { font-family: "CB Sans", sans-serif; color: #191923; --accent: #5550d8; }
+.cb-window { position: absolute; width: 500px; background: #f5f5f8; border-radius: 12px; overflow: hidden; box-shadow: 0 24px 60px rgba(22, 22, 44, 0.18), 0 0 0 1px rgba(22, 22, 44, 0.06); transform-origin: 0 0; }
+.cb-titlebar { height: 32px; display: flex; align-items: center; padding: 0 12px; background: #ececf1; font: 400 12px "CB Sans"; color: #555; gap: 8px; }
+.cb-titlebar .x { margin-left: auto; letter-spacing: 14px; color: #5f5f66; }
+.cb-topbar { display: flex; align-items: center; gap: 10px; padding: 14px 16px 10px; }
+.cb-brand { display: flex; align-items: center; gap: 8px; font-weight: 650; font-weight: 700; font-size: 15px; margin-inline-end: auto; }
+.cb-brand img { width: 26px; height: 26px; }
+.cb-status { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 11px; border: 1px solid #e3e3eb; border-radius: 999px; background: #fff; font-size: 12.5px; color: #191923; white-space: nowrap; }
+.cb-dot { width: 8px; height: 8px; border-radius: 50%; background: #16925a; box-shadow: 0 0 0 3px #e3f5ec; flex: none; }
+.cb-dot.warn { background: #b87108; box-shadow: none; }
+.cb-icon-btn { width: 32px; height: 32px; display: grid; place-items: center; color: #676778; }
+.cb-icon-btn svg, .cb svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.cb-search { position: relative; margin: 0 16px; height: 38px; border: 1px solid #e3e3eb; border-radius: 10px; background: #fff; display: flex; align-items: center; padding-inline: 12px; gap: 9px; font-size: 14px; color: #9898a7; }
+.cb-search.focus { border-color: #5550d8; box-shadow: 0 0 0 3px #ebebfd; }
+.cb-search .typed { color: #191923; }
+.cb-filters { display: flex; gap: 6px; padding: 10px 16px 6px; }
+.cb-chip { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border: 1px solid #e3e3eb; border-radius: 999px; background: #fff; color: #676778; font-size: 12.5px; white-space: nowrap; }
+.cb-chip.on { background: #5550d8; border-color: #5550d8; color: #fff; }
+.cb-chip .sw { width: 7px; height: 7px; border-radius: 50%; }
+.cb-list { padding: 2px 16px 16px; }
+.cb-day { padding: 12px 2px 6px; color: #676778; font-size: 12px; font-weight: 600; }
+.cb-item { position: relative; margin-bottom: 8px; padding: 9px 12px 11px; border: 1px solid #e3e3eb; border-radius: 12px; background: #fff; box-shadow: 0 1px 2px rgba(22, 22, 44, 0.06); }
+.cb-item.sel { border-color: #5550d8; box-shadow: 0 0 0 1px #5550d8; }
+.cb-meta { display: flex; align-items: center; gap: 8px; min-height: 24px; font-size: 12px; color: #676778; }
+.cb-dev { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+.cb-dev svg { width: 14px; height: 14px; }
+.cb-dev.mac { color: #0e9f6e; }
+.cb-dev.pc { color: #5550d8; }
+.cb-time { color: #9898a7; }
+.cb-acts { display: flex; gap: 2px; margin-inline-start: auto; color: #676778; }
+.cb-acts span { width: 26px; height: 26px; display: grid; place-items: center; }
+.cb-acts svg { width: 15px; height: 15px; }
+.cb .cb-star-on svg.i, .cb-star-on svg { fill: #e2a10b; stroke: #e2a10b; }
+.cb-text { margin-top: 3px; white-space: pre-wrap; font-size: 13.5px; line-height: 1.5; color: #191923; overflow-wrap: anywhere; }
+.cb-text.mono { font-family: "CB Mono", monospace; font-size: 12.5px; }
+.cb-thumb { display: block; margin-top: 6px; width: 300px; height: 168px; border-radius: 8px; border: 1px solid #e3e3eb; }
+.cb-thumb-meta { margin-top: 5px; font-size: 12px; color: #9898a7; }
+.cb-footer { display: flex; justify-content: space-between; padding: 8px 16px 10px; border-top: 1px solid #e3e3eb; color: #9898a7; font-size: 12px; background: #f5f5f8; }
+.cb-kbd { font-size: 11.5px; padding: 1px 5px; border: 1px solid #d2d2de; border-bottom-width: 2px; border-radius: 5px; color: #676778; background: #fff; }
+.cb-toast { position: absolute; font-family: "CB Sans", sans-serif; padding: 8px 14px; border-radius: 10px; background: #191923; color: #f5f5f8; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.cb-group { margin: 0 16px 12px; padding: 14px 16px; border: 1px solid #e3e3eb; border-radius: 12px; background: #fff; }
+.cb-group h3 { margin: 0 0 8px; font-size: 13.5px; font-weight: 700; }
+.cb-help { margin: 0 0 10px; color: #676778; font-size: 12.5px; line-height: 1.45; }
+.cb-code-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.cb-code { flex: 1; padding: 9px 12px; border-radius: 10px; background: #efeff5; font: 400 19px "CB Mono", monospace; font-weight: 600; letter-spacing: 0.08em; text-align: center; }
+.cb-btn { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 12px; border: 1px solid #d2d2de; border-radius: 8px; background: #fff; font-size: 13px; white-space: nowrap; }
+.cb-btn.primary { border-color: #5550d8; background: #5550d8; color: #fff; }
+.cb-label { display: block; margin-bottom: 5px; font-size: 12.5px; color: #676778; }
+.cb-input { flex: 1; height: 34px; padding: 0 10px; border: 1px solid #d2d2de; border-radius: 8px; background: #f5f5f8; display: flex; align-items: center; font: 600 14px "CB Mono", monospace; letter-spacing: 0.05em; color: #191923; }
+.cb-input.focus { border-color: #5550d8; box-shadow: 0 0 0 3px #ebebfd; }
+.cb-msg { margin: 8px 0 0; font-size: 12.5px; color: #16925a; }
+.cb-sheet-head { display: flex; align-items: center; gap: 6px; padding: 12px 12px 8px; font-size: 17px; font-weight: 700; }
+.cb-sheet-head svg { width: 18px; height: 18px; fill: none; stroke: #676778; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; margin: 0 7px; }
+.cb-peer { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+.cb-peer .ic { width: 34px; height: 34px; border-radius: 9px; background: #efeff5; color: #676778; display: grid; place-items: center; flex: none; }
+.cb-peer .ic svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.cb-peer .who { flex: 1; min-width: 0; }
+.cb-peer .who b { display: block; font-weight: 600; font-size: 14px; }
+.cb-peer .who small { color: #676778; font-size: 12px; }
+.cb-badge { flex: none; padding: 2px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 600; background: #e3f5ec; color: #16925a; }
+.cb-empty { color: #676778; font-size: 13px; padding: 2px 0 6px; line-height: 1.45; }
+.cb-menu { position: absolute; width: 300px; padding: 5px; background: rgba(246, 246, 248, 0.98); border: 1px solid #d9d9df; border-radius: 9px; box-shadow: 0 12px 30px rgba(20, 20, 40, 0.22); font: 400 13px "CB Sans"; color: #1d1d1f; }
+.cb-menu div { padding: 4px 10px 4px 26px; border-radius: 5px; position: relative; }
+.cb-menu .dim { color: #8b8b93; }
+.cb-menu .sep { height: 1px; padding: 0; margin: 4px 8px; background: #dcdce0; }
+.cb-menu .hl { background: #5550d8; color: #fff; }
+.cb-menu .check::before { content: "✓"; position: absolute; left: 9px; }
+
+
+/* ---------- FolderBridge's own UI (from src/renderer/style.css) ---------- */
+.fb-card { margin: 0 16px; padding: 14px 16px; border: 1px solid #e3e3eb; border-radius: 12px; background: #fff; box-shadow: 0 1px 2px rgba(22, 22, 44, 0.06); }
+.fb-head { display: flex; align-items: center; gap: 12px; }
+.fb-ficon { width: 40px; height: 40px; border-radius: 10px; background: #ebebfd; color: #5550d8; display: grid; place-items: center; flex: none; }
+.fb-ficon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.fb-ftext { flex: 1; min-width: 0; }
+.fb-ftext b { display: block; font-size: 15px; font-weight: 700; }
+.fb-ftext small { display: block; color: #676778; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fb-sync { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #e3e3eb; }
+.fb-sicon { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; flex: none; background: #efeff5; color: #676778; }
+.fb-sicon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.fb-sync.ok .fb-sicon { background: #e3f5ec; color: #16925a; }
+.fb-sync.busy .fb-sicon { background: #ebebfd; color: #5550d8; }
+.fb-sync.warn .fb-sicon { background: #fcf2e0; color: #b87108; }
+.fb-stext b { display: block; font-size: 14px; font-weight: 600; }
+.fb-stext small { display: block; color: #676778; font-size: 12.5px; white-space: nowrap; }
+.fb-progress { height: 6px; margin-top: 10px; border-radius: 999px; background: #efeff5; overflow: hidden; }
+.fb-progress i { display: block; height: 100%; width: 100%; border-radius: inherit; background: #5550d8; transform-origin: 0 50%; }
+.fb-devs { display: flex; gap: 6px; margin-top: 10px; }
+.fb-dev { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: #efeff5; color: #191923; font-size: 12.5px; white-space: nowrap; }
+.fb-dev svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.fb-dev .cb-dot { box-shadow: none; }
+.fb-banners { padding: 0 16px; }
+.fb-banner { margin-top: 8px; padding: 12px 14px; border: 1px solid #e3e3eb; border-inline-start: 3px solid #5550d8; border-radius: 10px; background: #fff; font-size: 13px; }
+.fb-banner.warn { border-color: transparent; border-inline-start-color: #b87108; background: #fcf2e0; }
+.fb-banner b { display: block; margin-bottom: 2px; }
+.fb-banner p { margin: 0; color: #676778; }
+.fb-banner .acts { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.fb-banner .cb-btn { height: 28px; padding: 0 10px; font-size: 12.5px; }
+.fb-act { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; padding: 8px 8px 8px 10px; border: 1px solid #e3e3eb; border-radius: 10px; background: #fff; box-shadow: 0 1px 2px rgba(22, 22, 44, 0.06); }
+.fb-aicon { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; background: #efeff5; color: #676778; }
+.fb-aicon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.fb-aicon.added, .fb-aicon.restored { background: #e3f5ec; color: #16925a; }
+.fb-aicon.changed, .fb-aicon.moved { background: #ebebfd; color: #5550d8; }
+.fb-aicon.conflict { background: #fcf2e0; color: #b87108; }
+.fb-amain { flex: 1; min-width: 0; }
+.fb-aname { font-size: 13.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fb-ameta { display: flex; gap: 6px; font-size: 12px; color: #676778; white-space: nowrap; }
+.fb-ameta .sep, .fb-ameta .when { color: #9898a7; }
+.fb-ameta .who { font-weight: 600; }
+.fb-ameta .who.here { color: #5550d8; }
+.fb-ameta .who.mac { color: #0e9f6e; }
+.fb-ameta .who.pc { color: #d97706; }
+.fb-footer { display: flex; justify-content: space-between; padding: 8px 16px 10px; border-top: 1px solid #e3e3eb; color: #9898a7; font-size: 12px; }
+
+/* ---------- file managers on the two screens ---------- */
+.finder { position: absolute; background: #fff; border-radius: 10px; box-shadow: 0 8px 26px rgba(20, 20, 40, 0.18); overflow: hidden; font-family: "CB Sans"; color: #1d1d1f; }
+.finder .side { position: absolute; left: 0; top: 28px; bottom: 0; width: 140px; background: #f2f1f6; border-right: 1px solid #e4e4e8; padding: 10px 8px; font-size: 12px; color: #444; }
+.finder .side div { padding: 4px 8px; border-radius: 5px; display: flex; align-items: center; gap: 6px; }
+.finder .side .on { background: #dcdbe4; color: #1d1d1f; font-weight: 600; }
+.finder .side img { width: 14px; height: 14px; border-radius: 3px; }
+.finder .main { position: absolute; left: 140px; right: 0; top: 28px; bottom: 0; padding: 10px 14px; }
+.explorer { position: absolute; background: #fff; border-radius: 8px; box-shadow: 0 8px 26px rgba(20, 20, 40, 0.18); overflow: hidden; font-family: "CB Sans"; color: #1b1b1b; }
+.explorer .side { position: absolute; left: 0; top: 64px; bottom: 0; width: 150px; background: #fafafa; border-right: 1px solid #ececec; padding: 8px; font-size: 12px; color: #333; }
+.explorer .side div { padding: 4px 8px; border-radius: 4px; display: flex; align-items: center; gap: 6px; }
+.explorer .side .on { background: #e5effb; font-weight: 600; }
+.explorer .side img { width: 14px; height: 14px; border-radius: 3px; }
+.explorer .addr { position: absolute; left: 0; right: 0; top: 30px; height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border-bottom: 1px solid #ececec; font-size: 12px; color: #444; }
+.explorer .addr span { flex: 1; height: 24px; display: flex; align-items: center; padding: 0 8px; border: 1px solid #e1e1e1; border-radius: 4px; }
+.explorer .main { position: absolute; left: 150px; right: 0; top: 64px; bottom: 0; padding: 8px 12px; }
+.frow { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 8px; border-radius: 6px; font-size: 13px; white-space: nowrap; }
+.frow .fic { width: 22px; height: 22px; flex: none; }
+.frow .nm { flex: 1; }
+.frow .sz { color: #66666e; font-size: 12px; }
+.frow.sel { background: #d7e5fb; }
+.frow.new { background: #e3f5ec; }
+.vfile { position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: #fff; box-shadow: 0 12px 26px rgba(25, 25, 35, 0.22); font: 600 15px "CB Sans"; color: #191923; white-space: nowrap; }
+.vfile .fic { width: 30px; height: 30px; }
+.vfile small { display: block; font-weight: 400; font-size: 12px; color: #676778; }

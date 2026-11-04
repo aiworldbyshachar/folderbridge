@@ -1,0 +1,141 @@
+<template>
+  <link rel="stylesheet" href="assets/ui.css" />
+  <style>
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI"); font-weight: 400; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Semibold"); font-weight: 600; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Bold"); font-weight: 700; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "CB Sans"; color: #2b2b30; }
+    #dt-wrap { position: absolute; inset: 0; background: #e7e5e1; }
+    .t-grain { position: absolute; inset: 0; opacity: 0.06;
+      background-image: repeating-radial-gradient(circle at 31% 27%, #000 0 1px, transparent 1px 3px), repeating-radial-gradient(circle at 63% 71%, #000 0 1px, transparent 1px 4px); }
+    .gwin { position: absolute; background: #fbfbfb; border-radius: 16px; box-shadow: 0 30px 70px rgba(30, 30, 40, 0.18); overflow: hidden; }
+    .gbar { height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: #f0f0f0; border-bottom: 1px solid #e2e2e2; font-size: 22px; font-weight: 600; color: #5d5d63; }
+    .gline { display: flex; gap: 20px; padding: 14px 28px; border-bottom: 1px solid #ececec; font-size: 26px; color: #45454b; }
+    .gline b { width: 110px; font-weight: 600; color: #9a9aa0; }
+    .gsend { display: inline-block; padding: 12px 30px; border-radius: 10px; background: #7b8597; color: #fff; font-size: 24px; font-weight: 600; }
+    .gfile { display: inline-flex; align-items: center; gap: 14px; padding: 12px 18px; border: 1px solid #dcdcdf; border-radius: 12px; background: #fff; font-size: 24px; font-weight: 600; color: #45454b; }
+    .gfile small { display: block; font-size: 18px; font-weight: 400; color: #9a9aa0; }
+    .gfile svg { width: 40px; height: 40px; flex: none; }
+
+    /* 1. the drawer: cables and adapters, but no USB stick */
+    #v1 { left: 330px; top: 190px; width: 1260px; height: 700px; border-radius: 18px; background: linear-gradient(#b9ab98, #a89985); box-shadow: 0 30px 70px rgba(30, 30, 40, 0.22), inset 0 0 0 14px #c6b8a5; }
+    #v1 .tray { position: absolute; left: 34px; top: 34px; right: 34px; bottom: 34px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px; }
+    #v1 .cell { position: relative; border-radius: 10px; background: #93857262; box-shadow: inset 0 4px 10px rgba(40, 30, 20, 0.25); overflow: hidden; }
+    #v1 .cell svg { position: absolute; }
+    #v1-missing { position: absolute; left: 50%; top: 50%; width: 220px; height: 92px; margin: -46px 0 0 -110px; }
+
+    /* 2. email it: the attachment is too large */
+    #v2 { left: 410px; top: 200px; width: 1100px; height: 660px; }
+    #v2-err { position: absolute; left: 28px; right: 28px; top: 430px; padding: 16px 22px; border-radius: 12px; background: #f6dede; color: #a33a3a; font-size: 26px; font-weight: 600; display: flex; align-items: center; gap: 14px; }
+    #v2-err svg { width: 30px; height: 30px; flex: none; }
+
+    /* 3. upload it: and wait */
+    #v3 { left: 360px; top: 250px; width: 1200px; height: 540px; }
+    #v3 .row { position: absolute; left: 40px; right: 40px; top: 150px; display: flex; align-items: center; gap: 18px; font-size: 28px; font-weight: 600; color: #45454b; }
+    #v3 .row svg { width: 52px; height: 52px; flex: none; }
+    #v3 .row .pct { margin-left: auto; color: #6f6f76; }
+    #v3 .bar { position: absolute; left: 40px; right: 40px; top: 250px; height: 16px; border-radius: 999px; background: #e4e4e6; overflow: hidden; }
+    #v3 .bar i { display: block; width: 100%; height: 100%; border-radius: inherit; background: #7b8597; transform-origin: 0 50%; }
+    #v3 .eta { position: absolute; left: 40px; top: 300px; font-size: 30px; color: #6f6f76; }
+    #v3 .eta span { position: absolute; left: 0; top: 0; white-space: nowrap; }
+  </style>
+
+  <div data-hf-id="hf-jpav" id="root" data-composition-id="detours" data-width="1920" data-height="1080">
+   <div data-hf-id="hf-oa52" id="dt-wrap">
+    <div data-hf-id="hf-0su6" class="t-grain"></div>
+
+    <!-- 1. hunt for a USB stick -->
+    <div data-hf-id="hf-ux4i" id="v1">
+      <div data-hf-id="hf-xugg" class="tray">
+        <div data-hf-id="hf-5ze1" id="c-cable" class="cell">
+          <svg data-hf-id="hf-o8l0" style="left: 40px; top: 30px" width="380" height="230" viewBox="0 0 380 230"><g data-hf-id="hf-coil" fill="none" stroke="#55565c" stroke-width="9" stroke-linecap="round"><ellipse data-hf-id="hf-4g56" cx="150" cy="115" rx="110" ry="70"/><ellipse data-hf-id="hf-4yyk" cx="160" cy="112" rx="88" ry="54"/><ellipse data-hf-id="hf-pl2s" cx="146" cy="120" rx="66" ry="40"/><path data-hf-id="hf-chpc" d="M250 120 C 300 140, 320 190, 360 200"/></g><rect data-hf-id="hf-irsx" x="346" y="188" width="30" height="22" rx="4" fill="#3f4045"/></svg>
+        </div>
+        <div data-hf-id="hf-palw" id="c-charger" class="cell">
+          <svg data-hf-id="hf-blc9" style="left: 70px; top: 50px" width="200" height="190" viewBox="0 0 200 190"><rect data-hf-id="hf-5vvo" x="30" y="30" width="120" height="120" rx="18" fill="#f2f2f0" stroke="#cfcfcc" stroke-width="3"/><rect data-hf-id="hf-p290" x="70" y="8" width="10" height="26" rx="3" fill="#a9a9ad"/><rect data-hf-id="hf-uywy" x="100" y="8" width="10" height="26" rx="3" fill="#a9a9ad"/><path data-hf-id="hf-qxx1" d="M90 150 C 90 175, 150 170, 190 180" fill="none" stroke="#e8e8e6" stroke-width="8" stroke-linecap="round"/></svg>
+        </div>
+        <div data-hf-id="hf-zvhp" id="c-batt" class="cell">
+          <svg data-hf-id="hf-xh75" style="left: 60px; top: 60px" width="220" height="170" viewBox="0 0 220 170"><g data-hf-id="hf-vhfv" transform="rotate(-12 110 85)"><rect data-hf-id="hf-v3oq" x="20" y="40" width="150" height="34" rx="8" fill="#6f7a6a"/><rect data-hf-id="hf-93gc" x="170" y="49" width="10" height="16" rx="2" fill="#9aa093"/><rect data-hf-id="hf-sbb8" x="30" y="92" width="150" height="34" rx="8" fill="#8a7a62"/><rect data-hf-id="hf-o1fa" x="180" y="101" width="10" height="16" rx="2" fill="#a89a84"/></g></svg>
+        </div>
+        <div data-hf-id="hf-qcsk" id="c-hdmi" class="cell">
+          <svg data-hf-id="hf-g31z" style="left: 60px; top: 40px" width="360" height="220" viewBox="0 0 360 220"><rect data-hf-id="hf-8yc3" x="40" y="70" width="110" height="60" rx="10" fill="#2f3035"/><rect data-hf-id="hf-s1dp" x="58" y="86" width="74" height="28" rx="4" fill="#55565c"/><path data-hf-id="hf-zrig" d="M150 100 C 230 100, 230 170, 330 170" fill="none" stroke="#3a3b40" stroke-width="12" stroke-linecap="round"/><rect data-hf-id="hf-u9i3" x="200" y="30" width="80" height="48" rx="8" fill="#c8c8cc"/><rect data-hf-id="hf-txim" x="214" y="44" width="52" height="20" rx="3" fill="#9a9aa0"/></svg>
+        </div>
+        <div data-hf-id="hf-589m" id="c-pens" class="cell">
+          <svg data-hf-id="hf-dc6a" style="left: 40px; top: 50px" width="260" height="190" viewBox="0 0 260 190"><g data-hf-id="hf-17x5" transform="rotate(18 130 95)"><rect data-hf-id="hf-a3bk" x="20" y="60" width="210" height="16" rx="8" fill="#7a8aa0"/><rect data-hf-id="hf-ffb4" x="20" y="96" width="190" height="16" rx="8" fill="#a08a7a"/></g><circle data-hf-id="hf-h0qm" cx="200" cy="150" r="18" fill="none" stroke="#8d8f95" stroke-width="5"/></svg>
+        </div>
+        <!-- the empty spot where the USB stick should be -->
+        <div data-hf-id="hf-dzk1" id="c-empty" class="cell">
+          <svg data-hf-id="hf-6t1c" id="v1-missing" viewBox="0 0 220 92"><rect data-hf-id="hf-d5sx" x="4" y="16" width="150" height="60" rx="12" fill="none" stroke="#6f6f76" stroke-width="4" stroke-dasharray="12 9"/><rect data-hf-id="hf-gtt8" x="154" y="28" width="58" height="36" rx="4" fill="none" stroke="#6f6f76" stroke-width="4" stroke-dasharray="10 8"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. email it -->
+    <div data-hf-id="hf-3od5" id="v2" class="gwin">
+      <div data-hf-id="hf-gix2" class="gbar"><span data-hf-id="hf-arqu">New message</span><span data-hf-id="hf-0z3v" style="letter-spacing: 18px">-☐✕</span></div>
+      <div data-hf-id="hf-x6vb" class="gline"><b data-hf-id="hf-r21w">To</b>me@mymail.com</div>
+      <div data-hf-id="hf-y87g" class="gline"><b data-hf-id="hf-ptn3">Subject</b>Wedding video</div>
+      <div data-hf-id="hf-uf05" style="padding: 28px 28px 0; font-size: 28px">Here's the video for editing.</div>
+      <div data-hf-id="hf-15mb" id="v2-file" style="position: absolute; left: 28px; top: 320px">
+        <span data-hf-id="hf-cg22" class="gfile"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><rect data-hf-id="hf-og9l" x="3" y="4" width="18" height="16" rx="3" fill="#8b86a8"/><path data-hf-id="hf-erbh" d="M10 9l5 3-5 3z" fill="#fff"/></svg><span data-hf-id="hf-nq1h">wedding-film.mp4<small data-hf-id="hf-aaz9">2.4 GB</small></span></span>
+      </div>
+      <div data-hf-id="hf-z2n1" id="v2-err"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><circle data-hf-id="hf-9l5h" cx="12" cy="12" r="10" fill="#c24a4a"/><path data-hf-id="hf-fhue" d="M12 7v6M12 16.5v.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>Attachment too large (25 MB limit)</div>
+      <div data-hf-id="hf-3doc" style="position: absolute; left: 28px; bottom: 30px"><span data-hf-id="hf-5u9h" id="v2-send" class="gsend">Send</span></div>
+    </div>
+
+    <!-- 3. upload it to the cloud, and wait -->
+    <div data-hf-id="hf-2wpc" id="v3" class="gwin">
+      <div data-hf-id="hf-4hfj" class="gbar" style="justify-content: flex-start; gap: 14px"><svg data-hf-id="hf-lcx3" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7b8597" stroke-width="1.8" stroke-linejoin="round"><path data-hf-id="hf-2f2u" d="M7 18h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.5 9.5 4.25 4.25 0 0 0 7 18z"/></svg>Uploading 1 item</div>
+      <div data-hf-id="hf-7y5s" class="row"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><rect data-hf-id="hf-mfcd" x="3" y="4" width="18" height="16" rx="3" fill="#8b86a8"/><path data-hf-id="hf-jy81" d="M10 9l5 3-5 3z" fill="#fff"/></svg>wedding-film.mp4<span data-hf-id="hf-ierl" class="pct"><span data-hf-id="hf-mfr3" id="v3-pct">0</span>%</span></div>
+      <div data-hf-id="hf-ufsv" class="bar"><i data-hf-id="hf-0p7o" id="v3-bar"></i></div>
+      <div data-hf-id="hf-dpzc" class="eta"><span data-hf-id="hf-ftxq" id="v3-calc">Calculating time left…</span><span data-hf-id="hf-4xnx" id="v3-eta">About 2 hours left</span></div>
+    </div>
+
+    <svg data-hf-id="hf-es6k" id="dt-cursor" class="cursor" viewBox="0 0 22 32" style="width: 44px; height: 64px"><path data-hf-id="hf-geat" d="M2 2 L2 26 L8 20 L12 30 L16 28 L12 18.5 L20 18.5 Z" fill="#111" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+   </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Scene time = film time - 15.2
+    gsap.set(["#v2", "#v3", "#v2-file", "#v2-err", "#v3-eta", "#v1-missing"], { opacity: 0 });
+    gsap.set("#v3-bar", { scaleX: 0 });
+    gsap.set("#dt-cursor", { x: 1500, y: 1000, opacity: 0 });
+
+    // the overlay arrives over the desk
+    tl.fromTo("#dt-wrap", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0);
+
+    // 1. "So you hunt for a USB stick": a drawer of everything else
+    tl.fromTo("#v1", { y: 260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, 0.05);
+    tl.to("#c-cable svg", { x: 26, y: -10, rotation: -4, duration: 0.18, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.65);
+    tl.to("#c-hdmi svg", { x: -22, y: 8, duration: 0.2, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.8);
+    tl.to("#c-charger svg", { x: 18, rotation: 6, duration: 0.17, yoyo: true, repeat: 3, ease: "sine.inOut" }, 1.0);
+    tl.to("#c-pens svg", { x: -16, y: -6, duration: 0.19, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.15);
+    tl.to("#v1-missing", { opacity: 1, duration: 0.3, ease: "power2.out" }, 1.44);
+    tl.to("#v1", { y: 300, opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 2.2);
+
+    // 2. "Email it... too big"
+    tl.fromTo("#v2", { opacity: 0, x: 120, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 2.4);
+    tl.fromTo("#v2-file", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 2.95);
+    tl.set("#dt-cursor", { x: 760, y: 980 }, 3.3);
+    tl.to("#dt-cursor", { opacity: 1, duration: 0.12 }, 3.3);
+    tl.to("#dt-cursor", { x: 490, y: 806, duration: 0.55, ease: "expo.out" }, 3.3);
+    tl.to("#v2-send", { scale: 0.95, duration: 0.07, yoyo: true, repeat: 1 }, 4.0);
+    tl.to("#dt-cursor", { opacity: 0, duration: 0.15 }, 4.35);
+    tl.fromTo("#v2-err", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 4.46);
+    tl.fromTo("#v2-err", { x: 0 }, { x: 8, duration: 0.05, yoyo: true, repeat: 5, ease: "sine.inOut" }, 4.5);
+    tl.to("#v2", { x: -160, opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 6.2);
+
+    // 3. "Upload it to the cloud... and wait two hours"
+    tl.fromTo("#v3", { opacity: 0, x: 120, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 6.35);
+    const pct = { n: 0 };
+    const showPct = () => { document.getElementById("v3-pct").textContent = String(Math.round(pct.n)); };
+    tl.fromTo(pct, { n: 0 }, { n: 3, duration: 1.3, ease: "power1.out", onUpdate: showPct, onStart: showPct }, 6.75);
+    tl.to("#v3-bar", { scaleX: 0.03, duration: 1.3, ease: "power1.out" }, 6.75);
+    tl.set("#v3-calc", { opacity: 0 }, 7.55);
+    tl.fromTo("#v3-eta", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 7.55);
+
+    // the overlay hands back to the desk
+    tl.to("#dt-wrap", { opacity: 0, duration: 0.3, ease: "power2.in" }, 8.9);
+    window.__timelines["detours"] = tl;
+  </script>
+</template>

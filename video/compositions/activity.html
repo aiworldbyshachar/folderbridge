@@ -1,0 +1,151 @@
+<template>
+  <link rel="stylesheet" href="assets/ui.css" />
+  <style>
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI"); font-weight: 400; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Semibold"); font-weight: 600; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Bold"); font-weight: 700; }
+    @font-face { font-family: "CB Mono"; src: local("Consolas"); font-weight: 400; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #e9e8ef; }
+    #a-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #a-win { left: 710px; top: 40px; height: 640px; }
+    #a-tag { position: absolute; left: 556px; top: 70px; display: flex; align-items: center; gap: 10px; font: 600 22px "CB Sans"; color: #676778; }
+    #a-tag svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    .sync-wrap { position: relative; }
+    .sync-over { position: absolute; left: 0; right: 0; top: 0; margin-top: 0; background: #fff; }
+    #a-banner { position: absolute; left: 16px; right: 16px; top: 248px; }
+    #a-lower { position: absolute; left: 0; right: 0; top: 256px; }
+    #a-lower .cb-search { margin: 0 16px; }
+    #a-day { padding: 8px 18px 6px; color: #676778; font-size: 12px; font-weight: 600; }
+    #a-rows { position: absolute; left: 16px; right: 16px; top: 112px; height: 240px; overflow: hidden; }
+    #a-list { position: absolute; left: 0; right: 0; top: 0; }
+    .fb-act { height: 48px; }
+    .who { padding: 0 4px; margin: 0 -4px; border-radius: 4px; }
+    #a-footer { position: absolute; left: 0; right: 0; bottom: 0; background: #f5f5f8; }
+    .a-count { position: relative; display: inline-block; min-width: 160px; height: 16px; }
+    .a-count span { position: absolute; left: 0; top: 0; white-space: nowrap; }
+    .hl-safe { border-radius: 3px; }
+    #a-toast { left: 920px; top: 500px; }
+  </style>
+
+  <div data-hf-id="hf-cqla" id="root" data-composition-id="activity" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-7qek" id="a-stage" data-layout-allow-overflow>
+      <div data-hf-id="hf-mcit" id="a-tag"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><rect data-hf-id="hf-w3u4" x="3" y="4" width="18" height="12" rx="1.5"/><path data-hf-id="hf-x8w8" d="M8.5 20h7M12 16v4"/></svg>Shachar-PC</div>
+
+      <!-- the real main window (src/renderer/index.html), on the PC -->
+      <div data-hf-id="hf-lnqz" id="a-win" class="cb cb-window">
+        <div data-hf-id="hf-vxkc" class="cb-titlebar">FolderBridge<span data-hf-id="hf-b0ut" class="x">-☐✕</span></div>
+        <div data-hf-id="hf-pgs8" class="cb-topbar">
+          <div data-hf-id="hf-k1di" class="cb-brand"><img data-hf-id="hf-o86s" src="assets/img/icon-128.png" alt="">FolderBridge</div>
+          <span data-hf-id="hf-1fwz" class="cb-status"><span data-hf-id="hf-v07c" class="cb-dot"></span>Connected to MacBook Air</span>
+          <span data-hf-id="hf-q2zz" class="cb-icon-btn"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><path data-hf-id="hf-1naj" d="M4 7h16M9 7V4.5h6V7M18 7l-.8 12.5a1.5 1.5 0 0 1-1.5 1.5H8.3a1.5 1.5 0 0 1-1.5-1.5L6 7M10 11v6M14 11v6"/></svg></span>
+          <span data-hf-id="hf-40cv" class="cb-icon-btn"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-72pb" d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle data-hf-id="hf-86x2" cx="15" cy="6" r="2"/><circle data-hf-id="hf-lses" cx="9" cy="12" r="2"/><circle data-hf-id="hf-u12n" cx="17" cy="18" r="2"/></svg></span>
+        </div>
+        <div data-hf-id="hf-jfr7" class="fb-card">
+          <div data-hf-id="hf-530n" class="fb-head">
+            <span data-hf-id="hf-6sh3" class="fb-ficon"><svg data-hf-id="hf-2man" viewBox="0 0 24 24"><path data-hf-id="hf-wa3v" d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4.2l2 2H19a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/></svg></span>
+            <div data-hf-id="hf-s6t0" class="fb-ftext"><b data-hf-id="hf-7l4o">FolderBridge</b><small data-hf-id="hf-pjl0">C:\Users\Shachar\FolderBridge</small></div>
+            <span data-hf-id="hf-ohxx" class="cb-btn primary">Open folder</span>
+          </div>
+          <div data-hf-id="hf-fjju" class="sync-wrap">
+            <div data-hf-id="hf-hpkm" class="fb-sync ok">
+              <span data-hf-id="hf-gwsm" class="fb-sicon"><svg data-hf-id="hf-3t7q" viewBox="0 0 24 24"><path data-hf-id="hf-lvfk" d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+              <span data-hf-id="hf-dhnw" class="fb-stext"><b data-hf-id="hf-2i1r">Up to date</b><small data-hf-id="hf-xdpr" class="a-count"><span data-hf-id="hf-f5ht" id="a-n1">214 files</span><span data-hf-id="hf-xfsz" id="a-n2">215 files</span></small></span>
+            </div>
+            <div data-hf-id="hf-oqly" id="a-warn" class="fb-sync warn sync-over" data-layout-allow-overlap>
+              <span data-hf-id="hf-nfgq" class="fb-sicon"><svg data-hf-id="hf-3ewp" viewBox="0 0 24 24"><path data-hf-id="hf-7dju" d="M12 4 2.8 19.5h18.4z"/><path data-hf-id="hf-ny8p" d="M12 10v4.5M12 17.2v.1"/></svg></span>
+              <span data-hf-id="hf-4e9w" class="fb-stext"><b data-hf-id="hf-5bw5">1 file needs your choice</b><small data-hf-id="hf-y9v1">Changed on both computers - <span data-hf-id="hf-wwld" id="a-safe" class="hl-safe">both versions are safe.</span></small></span>
+            </div>
+          </div>
+          <div data-hf-id="hf-aqxx" class="fb-devs"><span data-hf-id="hf-8697" class="fb-dev"><svg data-hf-id="hf-4lts" viewBox="0 0 24 24"><rect data-hf-id="hf-mz2z" x="4" y="5" width="16" height="11" rx="1.5"/><path data-hf-id="hf-7736" d="M2 19.5h20"/></svg>MacBook Air<span data-hf-id="hf-xzy8" class="cb-dot"></span></span></div>
+        </div>
+
+        <!-- the conflict, when a file was edited on both computers -->
+        <div data-hf-id="hf-g6sl" id="a-banner" class="fb-banner warn" style="margin-top: 0">
+          <b data-hf-id="hf-zo9v">“edit-notes.docx” was changed on both computers</b>
+          <p data-hf-id="hf-7zqc">MacBook Air: 24 KB, saved 2 minutes ago · This computer: 23 KB, saved now</p>
+          <div data-hf-id="hf-s5hz" class="acts"><span data-hf-id="hf-wiid" class="cb-btn">Keep this computer’s</span><span data-hf-id="hf-iww2" class="cb-btn">Keep MacBook Air’s</span><span data-hf-id="hf-yjie" id="a-both" class="cb-btn primary">Keep both</span></div>
+        </div>
+
+        <div data-hf-id="hf-svg6" id="a-lower">
+          <div data-hf-id="hf-x7jg" class="cb-search"><svg data-hf-id="hf-xr3z" class="i" viewBox="0 0 24 24"><circle data-hf-id="hf-r9ft" cx="11" cy="11" r="7"/><path data-hf-id="hf-8pe5" d="m20 20-3.5-3.5"/></svg>Search recent changes…</div>
+          <div data-hf-id="hf-3ym5" class="cb-filters"><span data-hf-id="hf-6c2z" class="cb-chip on">All</span><span data-hf-id="hf-drvm" class="cb-chip">This computer</span><span data-hf-id="hf-cfhb" class="cb-chip">Other computers</span><span data-hf-id="hf-xtxo" class="cb-chip">Conflicts</span></div>
+          <div data-hf-id="hf-p4ns" id="a-day">Today</div>
+          <div data-hf-id="hf-fumw" id="a-rows"><div data-hf-id="hf-2b8z" id="a-list">
+            <!-- newest first; the first six arrive during the scene -->
+            <div data-hf-id="hf-awq5" id="r6" class="fb-act"><span data-hf-id="hf-o3kq" class="fb-aicon restored"><svg data-hf-id="hf-47ir" viewBox="0 0 24 24"><path data-hf-id="hf-eh5k" d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><div data-hf-id="hf-r55t" class="fb-amain"><div data-hf-id="hf-our5" class="fb-aname">edit-notes.docx</div><div data-hf-id="hf-cqhp" class="fb-ameta"><span data-hf-id="hf-r2rj" class="who" style="color: #5550d8">This computer</span><i data-hf-id="hf-b3g5" class="sep">·</i><span data-hf-id="hf-qfz6">conflict settled - kept both</span><i data-hf-id="hf-8ui1" class="sep">·</i><span data-hf-id="hf-2hgj" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-euu6" id="r5" class="fb-act"><span data-hf-id="hf-4sui" class="fb-aicon conflict"><svg data-hf-id="hf-z1je" viewBox="0 0 24 24"><path data-hf-id="hf-tny6" d="M12 4 2.8 19.5h18.4z"/><path data-hf-id="hf-hvxp" d="M12 10v4.5M12 17.2v.1"/></svg></span><div data-hf-id="hf-boc5" class="fb-amain"><div data-hf-id="hf-a17p" class="fb-aname">edit-notes.docx</div><div data-hf-id="hf-83sh" class="fb-ameta"><span data-hf-id="hf-cxwd" class="who" style="color: #0891b2">MacBook Air</span><i data-hf-id="hf-a1f4" class="sep">·</i><span data-hf-id="hf-v6fl">changed on both computers</span><i data-hf-id="hf-9n43" class="sep">·</i><span data-hf-id="hf-z3z7" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-isy7" id="r4" class="fb-act"><span data-hf-id="hf-trre" class="fb-aicon added"><svg data-hf-id="hf-yn8d" viewBox="0 0 24 24"><path data-hf-id="hf-1zsu" d="M12 5v14M5 12h14"/></svg></span><div data-hf-id="hf-cv98" class="fb-amain"><div data-hf-id="hf-906d" class="fb-aname">guest-list.xlsx</div><div data-hf-id="hf-9apk" class="fb-ameta"><span data-hf-id="hf-8rpn" class="who w-here" style="color: #5550d8">This computer</span><i data-hf-id="hf-7nky" class="sep">·</i><span data-hf-id="hf-17tl">added</span><i data-hf-id="hf-799x" class="sep">·</i><span data-hf-id="hf-g4g1">18 KB</span><i data-hf-id="hf-8g70" class="sep">·</i><span data-hf-id="hf-ypo6" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-mr28" id="r3" class="fb-act"><span data-hf-id="hf-00v9" class="fb-aicon moved"><svg data-hf-id="hf-lxbj" viewBox="0 0 24 24"><path data-hf-id="hf-saoy" d="M4 12h14M13 7l5 5-5 5"/></svg></span><div data-hf-id="hf-cgy7" class="fb-amain"><div data-hf-id="hf-yhnr" class="fb-aname">first-dance.m4a</div><div data-hf-id="hf-8wej" class="fb-ameta"><span data-hf-id="hf-nojs" class="who w-mac" style="color: #0891b2">MacBook Air</span><i data-hf-id="hf-81vz" class="sep">·</i><span data-hf-id="hf-9aan">moved from Music</span><i data-hf-id="hf-62cu" class="sep">·</i><span data-hf-id="hf-nwx4">Wedding - edit</span><i data-hf-id="hf-5o1t" class="sep">·</i><span data-hf-id="hf-ybd5" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-pqbt" id="r2" class="fb-act"><span data-hf-id="hf-bymg" class="fb-aicon changed"><svg data-hf-id="hf-mbmk" viewBox="0 0 24 24"><path data-hf-id="hf-ox9p" d="M4 20h4L19 9l-4-4L4 16z"/><path data-hf-id="hf-9gmh" d="m13.5 6.5 4 4"/></svg></span><div data-hf-id="hf-dnva" class="fb-amain"><div data-hf-id="hf-3s9v" class="fb-aname">wedding-film.mp4</div><div data-hf-id="hf-6wve" class="fb-ameta"><span data-hf-id="hf-ahez" class="who w-here" style="color: #5550d8">This computer</span><i data-hf-id="hf-ge8r" class="sep">·</i><span data-hf-id="hf-5an3">changed</span><i data-hf-id="hf-gsjs" class="sep">·</i><span data-hf-id="hf-53ds">Wedding - edit</span><i data-hf-id="hf-flmp" class="sep">·</i><span data-hf-id="hf-0ww8">2.4 GB</span><i data-hf-id="hf-fzxq" class="sep">·</i><span data-hf-id="hf-xx24" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-tofu" id="r1" class="fb-act"><span data-hf-id="hf-2avi" class="fb-aicon added"><svg data-hf-id="hf-l4ph" viewBox="0 0 24 24"><path data-hf-id="hf-4b4y" d="M12 5v14M5 12h14"/></svg></span><div data-hf-id="hf-d9k9" class="fb-amain"><div data-hf-id="hf-fso0" class="fb-aname">IMG_2040.jpg</div><div data-hf-id="hf-6ikd" class="fb-ameta"><span data-hf-id="hf-bg5c" class="who w-mac" style="color: #0891b2">MacBook Air</span><i data-hf-id="hf-et0n" class="sep">·</i><span data-hf-id="hf-z2jx">added</span><i data-hf-id="hf-f7bo" class="sep">·</i><span data-hf-id="hf-3wgp">Wedding - edit</span><i data-hf-id="hf-e0el" class="sep">·</i><span data-hf-id="hf-6bw3">2.9 MB</span><i data-hf-id="hf-eepm" class="sep">·</i><span data-hf-id="hf-xir3" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-2lmn" class="fb-act"><span data-hf-id="hf-2p6j" class="fb-aicon added"><svg data-hf-id="hf-lj0i" viewBox="0 0 24 24"><path data-hf-id="hf-4pfz" d="M12 5v14M5 12h14"/></svg></span><div data-hf-id="hf-eghc" class="fb-amain"><div data-hf-id="hf-vqar" class="fb-aname">wedding-film.mp4</div><div data-hf-id="hf-7phg" class="fb-ameta"><span data-hf-id="hf-njqp" class="who" style="color: #0891b2">MacBook Air</span><i data-hf-id="hf-jkoz" class="sep">·</i><span data-hf-id="hf-09h0">added</span><i data-hf-id="hf-jz00" class="sep">·</i><span data-hf-id="hf-4arq">Wedding - edit</span><i data-hf-id="hf-x0g0" class="sep">·</i><span data-hf-id="hf-1hj4">2.4 GB</span><i data-hf-id="hf-wm4z" class="sep">·</i><span data-hf-id="hf-0rjp" class="when">9:41 AM</span></div></div></div>
+            <div data-hf-id="hf-tlvj" class="fb-act"><span data-hf-id="hf-33hk" class="fb-aicon added"><svg data-hf-id="hf-nijn" viewBox="0 0 24 24"><path data-hf-id="hf-53r0" d="M12 5v14M5 12h14"/></svg></span><div data-hf-id="hf-e26b" class="fb-amain"><div data-hf-id="hf-b84s" class="fb-aname">edit-notes.docx</div><div data-hf-id="hf-7b6f" class="fb-ameta"><span data-hf-id="hf-b933" class="who" style="color: #5550d8">This computer</span><i data-hf-id="hf-w7ty" class="sep">·</i><span data-hf-id="hf-zv5z">added</span><i data-hf-id="hf-vtix" class="sep">·</i><span data-hf-id="hf-c53l">21 KB</span><i data-hf-id="hf-vf7w" class="sep">·</i><span data-hf-id="hf-9nul" class="when">9:30 AM</span></div></div></div>
+            <div data-hf-id="hf-t7ki" class="fb-act"><span data-hf-id="hf-lrwg" class="fb-aicon changed"><svg data-hf-id="hf-nwuo" viewBox="0 0 24 24"><path data-hf-id="hf-f9r5" d="M4 20h4L19 9l-4-4L4 16z"/><path data-hf-id="hf-9owt" d="m13.5 6.5 4 4"/></svg></span><div data-hf-id="hf-8w6y" class="fb-amain"><div data-hf-id="hf-9asv" class="fb-aname">budget.xlsx</div><div data-hf-id="hf-bojq" class="fb-ameta"><span data-hf-id="hf-oqns" class="who" style="color: #0891b2">MacBook Air</span><i data-hf-id="hf-v0wv" class="sep">·</i><span data-hf-id="hf-19r3">changed</span><i data-hf-id="hf-umlu" class="sep">·</i><span data-hf-id="hf-e1du">Home</span><i data-hf-id="hf-u8at" class="sep">·</i><span data-hf-id="hf-ushq">44 KB</span><i data-hf-id="hf-ttzs" class="sep">·</i><span data-hf-id="hf-tvyi" class="when">9:02 AM</span></div></div></div>
+          </div></div>
+        </div>
+
+        <div data-hf-id="hf-6mix" id="a-footer" class="fb-footer"><span data-hf-id="hf-639g" class="a-count"><span data-hf-id="hf-zb1s" id="a-c1">214 files in the folder</span><span data-hf-id="hf-qmem" id="a-c2">215 files in the folder</span></span><span data-hf-id="hf-uckh"></span></div>
+      </div>
+
+      <div data-hf-id="hf-aq87" id="a-toast" class="cb-toast">Done ✓</div>
+      <svg data-hf-id="hf-toue" id="a-cursor" class="cursor" viewBox="0 0 22 32" style="width: 30px; height: 44px"><path data-hf-id="hf-geat" d="M2 2 L2 26 L8 20 L12 30 L16 28 L12 18.5 L20 18.5 Z" fill="#111" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Scene time = film time - 51.0
+    const cam = (t, cx, cy, s, d, ease) =>
+      tl.to("#a-stage", { x: 960 - cx * s, y: 540 - cy * s, scale: s, duration: d, ease: ease || "power2.inOut" }, t);
+    const ROW = 54, FRESH = ["#r1", "#r2", "#r3", "#r4", "#r5", "#r6"];
+    const BANNER = 128;
+
+    gsap.set("#a-stage", { transformOrigin: "0 0", x: 960 - 960 * 1.6, y: 540 - 360 * 1.6, scale: 1.6 });
+    gsap.set(["#a-warn", "#a-banner", "#a-toast", "#a-n2", "#a-c2", ...FRESH], { opacity: 0 });
+    gsap.set("#a-list", { y: -ROW * FRESH.length });
+    gsap.set("#a-cursor", { x: 1280, y: 780, opacity: 0 });
+
+    // the window arrives
+    // the pairing scene covers the first 0.35 s; the window is already there when it cuts
+    tl.fromTo(["#a-win", "#a-tag"], { y: 24 }, { y: 0, duration: 0.5, ease: "expo.out" }, 0.35);
+
+    // "You see every change": new rows drop in at the top, from both computers
+    let y = -ROW * FRESH.length;
+    const arrive = (id, t) => {
+      y += ROW;
+      tl.to("#a-list", { y, duration: 0.45, ease: "expo.out" }, t);
+      tl.fromTo(id, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, t + 0.08);
+    };
+    arrive("#r1", 0.94);
+    arrive("#r2", 1.5);
+    arrive("#r3", 2.05);
+    arrive("#r4", 2.6);
+    // "from both computers": who made each change
+    tl.fromTo(".w-mac", { backgroundColor: "rgba(8,145,178,0)" }, { backgroundColor: "rgba(8,145,178,0.16)", duration: 0.25, ease: "power2.out", yoyo: true, repeat: 1, repeatDelay: 1.0 }, 2.35);
+    tl.fromTo(".w-here", { backgroundColor: "rgba(85,80,216,0)" }, { backgroundColor: "rgba(85,80,216,0.16)", duration: 0.25, ease: "power2.out", yoyo: true, repeat: 1, repeatDelay: 1.0 }, 2.7);
+
+    // "Edited the same file on both?": FolderBridge asks
+    cam(4.25, 960, 300, 1.9, 0.7);
+    arrive("#r5", 4.7);
+    tl.fromTo("#a-warn", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 4.7);
+    tl.to("#a-lower", { y: BANNER, duration: 0.45, ease: "expo.out" }, 4.7);
+    tl.fromTo("#a-banner", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 4.8);
+    // "keeps both versions"
+    tl.fromTo("#a-safe", { backgroundColor: "rgba(255,226,140,0)" }, { backgroundColor: "rgba(255,226,140,1)", duration: 0.3, ease: "power2.out", yoyo: true, repeat: 1, repeatDelay: 1.1 }, 7.39);
+
+    // "and lets you choose": Keep both
+    tl.set("#a-cursor", { x: 1180, y: 560 }, 8.55);
+    tl.to("#a-cursor", { opacity: 1, duration: 0.12 }, 8.55);
+    tl.to("#a-cursor", { x: 1066, y: 356, duration: 0.6, ease: "expo.out" }, 8.6);
+    tl.to("#a-both", { scale: 0.95, duration: 0.07, yoyo: true, repeat: 1 }, 9.33);
+    tl.to("#a-banner", { opacity: 0, duration: 0.18 }, 9.42);
+    tl.to("#a-lower", { y: 0, duration: 0.45, ease: "expo.out" }, 9.45);
+    tl.to("#a-warn", { opacity: 0, duration: 0.15 }, 9.42);
+    tl.set(["#a-n1", "#a-c1"], { opacity: 0 }, 9.45);
+    tl.set(["#a-n2", "#a-c2"], { opacity: 1 }, 9.45);
+    arrive("#r6", 9.5);
+    tl.fromTo("#a-toast", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, 9.45);
+    tl.to("#a-cursor", { opacity: 0, duration: 0.2 }, 9.7);
+    window.__timelines["activity"] = tl;
+  </script>
+</template>

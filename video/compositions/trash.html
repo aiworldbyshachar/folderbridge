@@ -1,0 +1,176 @@
+<template>
+  <link rel="stylesheet" href="assets/ui.css" />
+  <style>
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI"); font-weight: 400; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Semibold"); font-weight: 600; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Bold"); font-weight: 700; }
+    @font-face { font-family: "CB Mono"; src: local("Consolas"); font-weight: 400; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #e9e8ef; }
+    #t-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    .t-tag { position: absolute; display: flex; align-items: center; gap: 10px; font: 600 22px "CB Sans"; color: #676778; }
+    .t-tag svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    #t-tag-pc { left: 351px; top: 118px; }
+    #t-tag-mac { left: 971px; top: 188px; }
+    /* the PC: FolderBridge's main window and its trash */
+    #t-win { left: 345px; top: 160px; height: 640px; }
+    #t-lower { position: absolute; left: 0; right: 0; top: 256px; }
+    #t-lower .cb-search { margin: 0 16px; }
+    #t-day { padding: 8px 18px 6px; color: #676778; font-size: 12px; font-weight: 600; }
+    #t-rows { position: absolute; left: 16px; right: 16px; top: 112px; height: 240px; overflow: hidden; }
+    #t-list { position: absolute; left: 0; right: 0; top: 0; }
+    .fb-act { height: 48px; }
+    .gone .fb-aname { color: #676778; }
+    #t-sheet { position: absolute; left: 0; right: 0; top: 32px; bottom: 0; background: #f5f5f8; }
+    #t-sheet .body { padding: 4px 16px 24px; }
+    #t-sheet .cb-help { margin-bottom: 10px; }
+    #t-help { border-radius: 3px; }
+    .t-slot { position: relative; height: 54px; }
+    .t-slot .fb-act { position: absolute; left: 0; right: 0; top: 0; }
+    .btn-small { height: 28px; padding: 0 10px; font-size: 12.5px; }
+    .t-link { display: inline-block; margin-top: 6px; color: #5550d8; font-size: 13px; }
+    #t-toast { left: 520px; top: 720px; }
+    /* the Mac: Finder in the wedding folder */
+    #t-finder { left: 965px; top: 230px; width: 610px; height: 300px; }
+    #t-finder .main .h { font-size: 15px; font-weight: 700; margin: 2px 0 8px 8px; }
+    #t-finder .rows { position: relative; }
+    #t-keys { left: 812px; top: 846px; }
+  </style>
+
+  <div data-hf-id="hf-7ggf" id="root" data-composition-id="trash" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-ec8l" id="t-stage" data-layout-allow-overflow>
+      <div data-hf-id="hf-k53i" id="t-tag-pc" class="t-tag"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><rect data-hf-id="hf-w3u4" x="3" y="4" width="18" height="12" rx="1.5"/><path data-hf-id="hf-x8w8" d="M8.5 20h7M12 16v4"/></svg>Shachar-PC</div>
+      <div data-hf-id="hf-xd04" id="t-tag-mac" class="t-tag"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><rect data-hf-id="hf-mz2z" x="4" y="5" width="16" height="11" rx="1.5"/><path data-hf-id="hf-7736" d="M2 19.5h20"/></svg>MacBook Air</div>
+
+      <!-- PC: the real main window (src/renderer/index.html) -->
+      <div data-hf-id="hf-0kl2" id="t-win" class="cb cb-window">
+        <div data-hf-id="hf-vxkc" class="cb-titlebar">FolderBridge<span data-hf-id="hf-b0ut" class="x">-☐✕</span></div>
+        <div data-hf-id="hf-pgs8" class="cb-topbar">
+          <div data-hf-id="hf-k1di" class="cb-brand"><img data-hf-id="hf-o86s" src="assets/img/icon-128.png" alt="">FolderBridge</div>
+          <span data-hf-id="hf-1fwz" class="cb-status"><span data-hf-id="hf-v07c" class="cb-dot"></span>Connected to MacBook Air</span>
+          <span data-hf-id="hf-qehv" id="t-bin" class="cb-icon-btn"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-1naj" d="M4 7h16M9 7V4.5h6V7M18 7l-.8 12.5a1.5 1.5 0 0 1-1.5 1.5H8.3a1.5 1.5 0 0 1-1.5-1.5L6 7M10 11v6M14 11v6"/></svg></span>
+          <span data-hf-id="hf-q2zz" class="cb-icon-btn"><svg data-hf-id="hf-2man" viewBox="0 0 24 24"><path data-hf-id="hf-72pb" d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle data-hf-id="hf-86x2" cx="15" cy="6" r="2"/><circle data-hf-id="hf-lses" cx="9" cy="12" r="2"/><circle data-hf-id="hf-u12n" cx="17" cy="18" r="2"/></svg></span>
+        </div>
+        <div data-hf-id="hf-jfr7" class="fb-card">
+          <div data-hf-id="hf-530n" class="fb-head">
+            <span data-hf-id="hf-6sh3" class="fb-ficon"><svg data-hf-id="hf-3t7q" viewBox="0 0 24 24"><path data-hf-id="hf-wa3v" d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4.2l2 2H19a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/></svg></span>
+            <div data-hf-id="hf-s6t0" class="fb-ftext"><b data-hf-id="hf-7l4o">FolderBridge</b><small data-hf-id="hf-pjl0">C:\Users\Shachar\FolderBridge</small></div>
+            <span data-hf-id="hf-ohxx" class="cb-btn primary">Open folder</span>
+          </div>
+          <div data-hf-id="hf-hpkm" class="fb-sync ok">
+            <span data-hf-id="hf-gwsm" class="fb-sicon"><svg data-hf-id="hf-3ewp" viewBox="0 0 24 24"><path data-hf-id="hf-lvfk" d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+            <span data-hf-id="hf-dhnw" class="fb-stext"><b data-hf-id="hf-2i1r">Up to date</b><small data-hf-id="hf-jcmo">214 files</small></span>
+          </div>
+          <div data-hf-id="hf-aqxx" class="fb-devs"><span data-hf-id="hf-8697" class="fb-dev"><svg data-hf-id="hf-4lts" viewBox="0 0 24 24"><rect data-hf-id="hf-tn4r" x="4" y="5" width="16" height="11" rx="1.5"/><path data-hf-id="hf-8686" d="M2 19.5h20"/></svg>MacBook Air<span data-hf-id="hf-xzy8" class="cb-dot"></span></span></div>
+        </div>
+        <div data-hf-id="hf-57df" id="t-lower">
+          <div data-hf-id="hf-x7jg" class="cb-search"><svg data-hf-id="hf-xr3z" class="i" viewBox="0 0 24 24"><circle data-hf-id="hf-r9ft" cx="11" cy="11" r="7"/><path data-hf-id="hf-8pe5" d="m20 20-3.5-3.5"/></svg>Search recent changes…</div>
+          <div data-hf-id="hf-3ym5" class="cb-filters"><span data-hf-id="hf-6c2z" class="cb-chip on">All</span><span data-hf-id="hf-drvm" class="cb-chip">This computer</span><span data-hf-id="hf-cfhb" class="cb-chip">Other computers</span><span data-hf-id="hf-xtxo" class="cb-chip">Conflicts</span></div>
+          <div data-hf-id="hf-2hor" id="t-day">Today</div>
+          <div data-hf-id="hf-b0gz" id="t-rows"><div data-hf-id="hf-xmqs" id="t-list">
+            <div data-hf-id="hf-mrbe" id="t-del" class="fb-act gone"><span data-hf-id="hf-pm10" class="fb-aicon"><svg data-hf-id="hf-47ir" viewBox="0 0 24 24"><path data-hf-id="hf-6hor" d="M4 7h16M9 7V4.5h6V7M18 7l-.8 12.5a1.5 1.5 0 0 1-1.5 1.5H8.3a1.5 1.5 0 0 1-1.5-1.5L6 7M10 11v6M14 11v6"/></svg></span><div data-hf-id="hf-r55t" class="fb-amain"><div data-hf-id="hf-tbbj" class="fb-aname">IMG_2041.jpg</div><div data-hf-id="hf-cqhp" class="fb-ameta"><span data-hf-id="hf-cxwd" class="who" style="color: #0891b2">MacBook Air</span><i data-hf-id="hf-b3g5" class="sep">·</i><span data-hf-id="hf-ayqd">deleted - in the trash</span><i data-hf-id="hf-8ui1" class="sep">·</i><span data-hf-id="hf-nwx4">Wedding - edit</span><i data-hf-id="hf-a1f4" class="sep">·</i><span data-hf-id="hf-2hgj" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-2lmn" class="fb-act"><span data-hf-id="hf-bymg" class="fb-aicon changed"><svg data-hf-id="hf-z1je" viewBox="0 0 24 24"><path data-hf-id="hf-ox9p" d="M4 20h4L19 9l-4-4L4 16z"/><path data-hf-id="hf-9gmh" d="m13.5 6.5 4 4"/></svg></span><div data-hf-id="hf-boc5" class="fb-amain"><div data-hf-id="hf-our5" class="fb-aname">edit-notes.docx</div><div data-hf-id="hf-83sh" class="fb-ameta"><span data-hf-id="hf-r2rj" class="who" style="color: #5550d8">This computer</span><i data-hf-id="hf-9n43" class="sep">·</i><span data-hf-id="hf-5an3">changed</span><i data-hf-id="hf-7nky" class="sep">·</i><span data-hf-id="hf-g4ew">24 KB</span><i data-hf-id="hf-799x" class="sep">·</i><span data-hf-id="hf-z3z7" class="when">now</span></div></div></div>
+            <div data-hf-id="hf-tlvj" class="fb-act"><span data-hf-id="hf-trre" class="fb-aicon added"><svg data-hf-id="hf-yn8d" viewBox="0 0 24 24"><path data-hf-id="hf-1zsu" d="M12 5v14M5 12h14"/></svg></span><div data-hf-id="hf-cv98" class="fb-amain"><div data-hf-id="hf-906d" class="fb-aname">guest-list.xlsx</div><div data-hf-id="hf-9apk" class="fb-ameta"><span data-hf-id="hf-b933" class="who" style="color: #5550d8">This computer</span><i data-hf-id="hf-8g70" class="sep">·</i><span data-hf-id="hf-17tl">added</span><i data-hf-id="hf-81vz" class="sep">·</i><span data-hf-id="hf-g4g1">18 KB</span><i data-hf-id="hf-62cu" class="sep">·</i><span data-hf-id="hf-qwdt" class="when">1 minute ago</span></div></div></div>
+            <div data-hf-id="hf-t7ki" class="fb-act"><span data-hf-id="hf-00v9" class="fb-aicon moved"><svg data-hf-id="hf-lxbj" viewBox="0 0 24 24"><path data-hf-id="hf-saoy" d="M4 12h14M13 7l5 5-5 5"/></svg></span><div data-hf-id="hf-cgy7" class="fb-amain"><div data-hf-id="hf-yhnr" class="fb-aname">first-dance.m4a</div><div data-hf-id="hf-8wej" class="fb-ameta"><span data-hf-id="hf-njqp" class="who" style="color: #0891b2">MacBook Air</span><i data-hf-id="hf-5o1t" class="sep">·</i><span data-hf-id="hf-9aan">moved from Music</span><i data-hf-id="hf-ge8r" class="sep">·</i><span data-hf-id="hf-53ds">Wedding - edit</span><i data-hf-id="hf-gsjs" class="sep">·</i><span data-hf-id="hf-q8jd" class="when">2 minutes ago</span></div></div></div>
+            <div data-hf-id="hf-st9h" class="fb-act"><span data-hf-id="hf-lrwg" class="fb-aicon changed"><svg data-hf-id="hf-mbmk" viewBox="0 0 24 24"><path data-hf-id="hf-f9r5" d="M4 20h4L19 9l-4-4L4 16z"/><path data-hf-id="hf-9owt" d="m13.5 6.5 4 4"/></svg></span><div data-hf-id="hf-dnva" class="fb-amain"><div data-hf-id="hf-3s9v" class="fb-aname">wedding-film.mp4</div><div data-hf-id="hf-6wve" class="fb-ameta"><span data-hf-id="hf-aus2" class="who" style="color: #5550d8">This computer</span><i data-hf-id="hf-flmp" class="sep">·</i><span data-hf-id="hf-19r3">changed</span><i data-hf-id="hf-fzxq" class="sep">·</i><span data-hf-id="hf-3wgp">Wedding - edit</span><i data-hf-id="hf-et0n" class="sep">·</i><span data-hf-id="hf-0ww8">2.4 GB</span><i data-hf-id="hf-f7bo" class="sep">·</i><span data-hf-id="hf-6vgy" class="when">3 minutes ago</span></div></div></div>
+          </div></div>
+        </div>
+        <div data-hf-id="hf-wa5n" class="fb-footer" style="position: absolute; left: 0; right: 0; bottom: 0; background: #f5f5f8"><span data-hf-id="hf-1fqb">214 files in the folder</span><span data-hf-id="hf-uckh"></span></div>
+
+        <!-- the Trash sheet -->
+        <div data-hf-id="hf-zxpt" id="t-sheet" data-layout-allow-overlap>
+          <div data-hf-id="hf-62b6" class="cb-sheet-head"><svg data-hf-id="hf-l4ph" viewBox="0 0 24 24"><path data-hf-id="hf-2953" d="M19 12H5M11 6l-6 6 6 6"/></svg>Trash</div>
+          <div data-hf-id="hf-2t3w" class="body">
+            <p data-hf-id="hf-dfl8" class="cb-help"><span data-hf-id="hf-60ai" id="t-help">Files deleted or replaced by sync are kept here for 30 days, then removed automatically.</span></p>
+            <div data-hf-id="hf-te9p" class="t-slot">
+              <div data-hf-id="hf-ovmt" id="t-item" class="fb-act"><span data-hf-id="hf-o7wc" class="fb-aicon"><svg data-hf-id="hf-lj0i" viewBox="0 0 24 24"><path data-hf-id="hf-63dq" d="M4 7h16M9 7V4.5h6V7M18 7l-.8 12.5a1.5 1.5 0 0 1-1.5 1.5H8.3a1.5 1.5 0 0 1-1.5-1.5L6 7M10 11v6M14 11v6"/></svg></span><div data-hf-id="hf-d9k9" class="fb-amain"><div data-hf-id="hf-4i3z" class="fb-aname">IMG_2041.jpg</div><div data-hf-id="hf-6ikd" class="fb-ameta"><span data-hf-id="hf-5rpx">deleted on MacBook Air</span><i data-hf-id="hf-e0el" class="sep">·</i><span data-hf-id="hf-4arq">Wedding - edit</span><i data-hf-id="hf-eepm" class="sep">·</i><span data-hf-id="hf-ymia">3.1 MB</span><i data-hf-id="hf-jkoz" class="sep">·</i><span data-hf-id="hf-ypo6" class="when">now</span></div></div><span data-hf-id="hf-n7s4" id="t-restore" class="cb-btn btn-small">Restore</span></div>
+            </div>
+            <div data-hf-id="hf-khyi" id="t-older" class="fb-act"><span data-hf-id="hf-n0z9" class="fb-aicon"><svg data-hf-id="hf-nijn" viewBox="0 0 24 24"><path data-hf-id="hf-5p2p" d="M4 7h16M9 7V4.5h6V7M18 7l-.8 12.5a1.5 1.5 0 0 1-1.5 1.5H8.3a1.5 1.5 0 0 1-1.5-1.5L6 7M10 11v6M14 11v6"/></svg></span><div data-hf-id="hf-eghc" class="fb-amain"><div data-hf-id="hf-csc8" class="fb-aname">vows-draft.docx</div><div data-hf-id="hf-7phg" class="fb-ameta"><span data-hf-id="hf-ewjm">replaced by a newer version from MacBook Air</span><i data-hf-id="hf-jz00" class="sep">·</i><span data-hf-id="hf-ivez" class="when">Yesterday</span></div></div><span data-hf-id="hf-m4rr" class="cb-btn btn-small">Restore</span></div>
+            <span data-hf-id="hf-2gbn" class="t-link">Open the trash folder</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mac: Finder -->
+      <div data-hf-id="hf-nipr" id="t-finder" class="finder">
+        <div data-hf-id="hf-3va2" class="win-bar"><span data-hf-id="hf-r6mh" class="dots"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i></span><span data-hf-id="hf-33un">Wedding - edit</span></div>
+        <div data-hf-id="hf-cww1" class="side">
+          <div data-hf-id="hf-9b60">Desktop</div><div data-hf-id="hf-wjxq">Documents</div><div data-hf-id="hf-e3ix">Downloads</div><div data-hf-id="hf-sau6" class="on"><img data-hf-id="hf-bjpo" src="assets/img/icon-128.png" alt="">FolderBridge</div>
+        </div>
+        <div data-hf-id="hf-k15r" class="main">
+          <div data-hf-id="hf-ibwx" class="h">Wedding - edit</div>
+          <div data-hf-id="hf-hnc7" class="rows">
+            <div data-hf-id="hf-dbbe" class="frow"><svg data-hf-id="hf-cv8w" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-eduu" x="3" y="4" width="18" height="16" rx="3" fill="#7c5cf0"/><path data-hf-id="hf-erbh" d="M10 9l5 3-5 3z" fill="#fff"/></svg><span data-hf-id="hf-rh26" class="nm">wedding-film.mp4</span><span data-hf-id="hf-2x9b" class="sz">2.4 GB</span></div>
+            <div data-hf-id="hf-2rf2" class="frow"><svg data-hf-id="hf-r9jc" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-i2rh" x="3" y="4" width="18" height="16" rx="3" fill="#e8a24a"/><circle data-hf-id="hf-6lln" cx="9" cy="10" r="2" fill="#fff"/><path data-hf-id="hf-jatu" d="M5 18l5-5 3 3 2-2 4 4z" fill="#fff"/></svg><span data-hf-id="hf-fp5h" class="nm">IMG_2040.jpg</span><span data-hf-id="hf-sue4" class="sz">2.9 MB</span></div>
+            <div data-hf-id="hf-g09e" id="m-photo" class="frow"><svg data-hf-id="hf-q2m9" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-q07l" x="3" y="4" width="18" height="16" rx="3" fill="#e8a24a"/><circle data-hf-id="hf-k84b" cx="9" cy="10" r="2" fill="#fff"/><path data-hf-id="hf-ky52" d="M5 18l5-5 3 3 2-2 4 4z" fill="#fff"/></svg><span data-hf-id="hf-lg86" class="nm">IMG_2041.jpg</span><span data-hf-id="hf-71lh" class="sz">3.1 MB</span></div>
+            <div data-hf-id="hf-rj1r" id="m-after">
+              <div data-hf-id="hf-35q3" class="frow"><svg data-hf-id="hf-qgxa" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-nko6" x="3" y="4" width="18" height="16" rx="3" fill="#3aa7c9"/><path data-hf-id="hf-jdcd" d="M10 15V8l6-1.5v7" fill="none" stroke="#fff" stroke-width="1.6"/><circle data-hf-id="hf-5l8e" cx="9" cy="15.5" r="1.6" fill="#fff"/><circle data-hf-id="hf-a4h7" cx="15" cy="14" r="1.6" fill="#fff"/></svg><span data-hf-id="hf-c3s8" class="nm">first-dance.m4a</span><span data-hf-id="hf-kqv3" class="sz">6.2 MB</span></div>
+              <div data-hf-id="hf-3k14" class="frow"><svg data-hf-id="hf-pa07" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-2ja1" x="3" y="4" width="18" height="16" rx="3" fill="#3f9b5f"/><path data-hf-id="hf-lubl" d="M8 9h8M8 12h8M8 15h5" stroke="#fff" stroke-width="1.6"/></svg><span data-hf-id="hf-cipe" class="nm">guest-list.xlsx</span><span data-hf-id="hf-2xcg" class="sz">18 KB</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-h5u8" id="t-toast" class="cb-toast">Restored “IMG_2041.jpg”</div>
+      <svg data-hf-id="hf-fa9l" id="t-cursor" class="cursor" viewBox="0 0 22 32" style="width: 30px; height: 44px"><path data-hf-id="hf-geat" d="M2 2 L2 26 L8 20 L12 30 L16 28 L12 18.5 L20 18.5 Z" fill="#111" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- frame space: the Mac's delete keys -->
+    <div data-hf-id="hf-qh23" id="t-keys" class="keys"><div data-hf-id="hf-p1d3" class="key">⌘</div><div data-hf-id="hf-ia5m" class="key">⌫</div></div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Scene time = film time - 61.0
+    const cam = (t, cx, cy, s, d, ease) =>
+      tl.to("#t-stage", { x: 960 - cx * s, y: 540 - cy * s, scale: s, duration: d, ease: ease || "power2.inOut" }, t);
+    const ROW = 54;
+
+    gsap.set("#t-stage", { transformOrigin: "0 0", x: 960 - 1270 * 1.62, y: 540 - 390 * 1.62, scale: 1.62 });
+    gsap.set(["#t-sheet", "#t-toast", "#t-keys", "#t-del", "#t-win", "#t-tag-pc"], { opacity: 0 });
+    gsap.set("#t-list", { y: -ROW });
+    gsap.set("#t-cursor", { x: 980, y: 560, opacity: 0 });
+
+    // "Deleted something by mistake?": the photo goes on the Mac
+    tl.set("#m-photo", { backgroundColor: "#d7e5fb" }, 0.05);
+    tl.fromTo("#t-keys", { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "expo.out" }, 0.1);
+    tl.fromTo("#t-keys .key", { scale: 1 }, { scale: 0.94, y: 3, duration: 0.07, stagger: 0.05, ease: "power2.out" }, 0.32);
+    tl.to("#t-keys .key", { scale: 1, y: 0, duration: 0.12, stagger: 0.05, ease: "power2.out" }, 0.42);
+    tl.to("#m-photo", { opacity: 0, x: -12, duration: 0.18, ease: "power3.in" }, 0.45);
+    tl.to("#m-after", { y: -34, duration: 0.35, ease: "expo.out" }, 0.6);
+    tl.to("#t-keys", { opacity: 0, y: 24, duration: 0.22, ease: "power3.in" }, 0.95);
+
+    // on the PC, FolderBridge shows where it went
+    cam(1.1, 595, 410, 1.55, 0.7);
+    tl.to(["#t-win", "#t-tag-pc"], { opacity: 1, duration: 0.35, ease: "power2.out" }, 1.1);
+    tl.to("#t-list", { y: 0, duration: 0.45, ease: "expo.out" }, 1.55);
+    tl.fromTo("#t-del", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, 1.63);
+
+    // "One click in FolderBridge's trash"
+    tl.set("#t-cursor", { x: 700, y: 330 }, 2.5);
+    tl.to("#t-cursor", { opacity: 1, duration: 0.12 }, 2.5);
+    tl.to("#t-cursor", { x: 776, y: 222, duration: 0.55, ease: "expo.out" }, 2.55);
+    tl.to("#t-bin", { scale: 0.9, duration: 0.07, yoyo: true, repeat: 1 }, 3.23);
+    tl.fromTo("#t-sheet", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 3.3);
+
+    // "and it's back"
+    tl.to("#t-cursor", { x: 786, y: 324, duration: 0.6, ease: "expo.out" }, 4.6);
+    tl.to("#t-restore", { scale: 0.95, duration: 0.07, yoyo: true, repeat: 1 }, 5.45);
+    tl.to("#t-item", { opacity: 0, x: -10, duration: 0.2, ease: "power3.in" }, 5.52);
+    tl.to("#t-older", { y: -ROW, duration: 0.35, ease: "expo.out" }, 5.7);
+    tl.to(".t-link", { y: -ROW, duration: 0.35, ease: "expo.out" }, 5.7);
+    tl.fromTo("#t-toast", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, 5.56);
+    tl.to("#t-cursor", { opacity: 0, duration: 0.2 }, 5.8);
+
+    // "on both": the photo is back in the Mac's Finder too
+    cam(5.9, 960, 470, 1.28, 0.6);
+    tl.set("#m-photo", { backgroundColor: "#e3f5ec", x: 0 }, 6.24);
+    tl.to("#m-after", { y: 0, duration: 0.35, ease: "expo.out" }, 6.24);
+    tl.fromTo("#m-photo", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, 6.3);
+    tl.to("#t-toast", { opacity: 0, duration: 0.2 }, 6.7);
+
+    // "Nothing is ever lost": the trash keeps everything for 30 days
+    cam(6.9, 595, 262, 2.05, 0.8);
+    tl.fromTo("#t-help", { backgroundColor: "rgba(255,226,140,0)" }, { backgroundColor: "rgba(255,226,140,1)", duration: 0.35, ease: "power2.out" }, 7.5);
+    window.__timelines["trash"] = tl;
+  </script>
+</template>

@@ -5,7 +5,7 @@
 **שומרים במק. פותחים בפיסי.** וגם להפך.
 סנכרון תיקייה בין Mac ל-Windows ברשת הביתית: תיקייה אחת, זהה בשני המחשבים. חינמי, בקוד פתוח, בלי ענן, בלי חשבון ובלי מגבלת נפח.
 
-[אתר](https://aiworldbyshachar.github.io/folderbridge/) · [הורדה ל-Windows](https://github.com/aiworldbyshachar/folderbridge/releases/latest/download/FolderBridge-Windows-Setup.exe) · [הורדה ל-Mac](https://github.com/aiworldbyshachar/folderbridge/releases/latest/download/FolderBridge-macOS.dmg) · [English](README.md)
+[אתר וסרטון הדגמה](https://aiworldbyshachar.github.io/folderbridge/) · [הורדה ל-Windows](https://github.com/aiworldbyshachar/folderbridge/releases/latest/download/FolderBridge-Windows-Setup.exe) · [הורדה ל-Mac](https://github.com/aiworldbyshachar/folderbridge/releases/latest/download/FolderBridge-macOS.dmg) · [English](README.md)
 
 - **שומרים כאן, פותחים שם**: קובץ שנכנס לתיקיית `FolderBridge` במחשב אחד נמצא תוך רגע במחשב השני. גם עריכות, שינויי שם, תיקיות חדשות ומחיקות.
 - **שום דבר לא הולך לאיבוד**: קבצים שנמחקו או הוחלפו עוברים לסל המחזור של FolderBridge ל-30 יום, עם שחזור. כשהרבה קבצים נעלמים בבת אחת, הוא שואל לפני שהוא מוחק אותם במחשב השני. תיקייה שנעלמה (כונן שנותק) אף פעם לא נחשבת כ"הכל נמחק".

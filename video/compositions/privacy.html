@@ -1,0 +1,125 @@
+<template>
+  <link rel="stylesheet" href="assets/ui.css" />
+  <style>
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI"); font-weight: 400; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Semibold"); font-weight: 600; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Bold"); font-weight: 700; }
+    @font-face { font-family: "CB Mono"; src: local("Consolas"); font-weight: 400; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f1ece4; }
+    #v-bridge, #v-cloudlines { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    #v-cloud { position: absolute; left: 885px; top: -130px; width: 160px; height: 100px; }
+    #v-lock { position: absolute; left: 965px; top: 60px; width: 0; height: 0; }
+    #v-lock .b { position: absolute; left: -36px; top: -36px; width: 72px; height: 72px; border-radius: 50%; background: #fff; border: 4px solid #5550d8; display: grid; place-items: center; box-shadow: 0 10px 22px rgba(25, 25, 35, 0.18); }
+    #v-lock svg { width: 32px; height: 32px; fill: none; stroke: #5550d8; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    #v-lock-label { position: absolute; left: 715px; top: 112px; width: 500px; text-align: center; font: 600 22px "CB Sans"; color: #5550d8; white-space: nowrap; }
+    .arm { position: absolute; left: 965px; top: 325px; width: 0; height: 0; }
+    .arm .rider { position: absolute; left: -265px; top: 0; width: 0; height: 0; }
+    .scramble { position: absolute; left: 0; top: 0; padding: 8px 14px; border-radius: 10px; background: #191923; color: #fff; font: 400 18px "CB Mono", monospace; white-space: nowrap; letter-spacing: 0.04em; }
+    #v-finder { left: 40px; top: 40px; width: 610px; height: 300px; }
+    #v-finder .main .h { font-size: 15px; font-weight: 700; margin: 2px 0 8px 8px; }
+    #v-explorer { left: 40px; top: 26px; width: 520px; height: 330px; }
+    .v-labels { position: absolute; left: 0; right: 0; top: 900px; display: flex; justify-content: center; gap: 72px; }
+    .v-label { display: flex; align-items: center; gap: 14px; font: 600 34px "CB Sans"; color: #4a4a58; }
+    .v-label svg { width: 36px; height: 36px; fill: none; stroke: #5550d8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <div data-hf-id="hf-w9f5" id="root" data-composition-id="privacy" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-y4ls" id="v-stage" class="stage" data-layout-allow-overflow>
+      <div data-hf-id="hf-a9vw" class="wall"></div>
+      <div data-hf-id="hf-uoel" class="desk-top"></div>
+      <div data-hf-id="hf-axil" class="mac-lid">
+        <div data-hf-id="hf-fpsy" class="mac-screen">
+          <div data-hf-id="hf-4em6" class="mac-wall"></div>
+          <div data-hf-id="hf-1mn2" class="mac-menubar"><span data-hf-id="hf-29sp">Finder</span><span data-hf-id="hf-h618" style="font-weight: 400">File</span><span data-hf-id="hf-yvs6" style="font-weight: 400">Edit</span><span data-hf-id="hf-e6xl" class="right"><img data-hf-id="hf-t3zz" class="tray" src="assets/img/icon-128.png" alt="" /><span data-hf-id="hf-ndxo">Thu 9:41</span></span></div>
+          <div data-hf-id="hf-0smd" id="v-finder" class="finder">
+            <div data-hf-id="hf-3va2" class="win-bar"><span data-hf-id="hf-r6mh" class="dots"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i></span><span data-hf-id="hf-36c4">FolderBridge</span></div>
+            <div data-hf-id="hf-cww1" class="side"><div data-hf-id="hf-9b60">Desktop</div><div data-hf-id="hf-wjxq">Documents</div><div data-hf-id="hf-e3ix">Downloads</div><div data-hf-id="hf-sau6" class="on"><img data-hf-id="hf-o86s" src="assets/img/icon-128.png" alt="">FolderBridge</div></div>
+            <div data-hf-id="hf-k15r" class="main">
+              <div data-hf-id="hf-ppup" class="h">FolderBridge</div>
+              <div data-hf-id="hf-dbbe" class="frow"><svg data-hf-id="hf-cv8w" class="fic" viewBox="0 0 24 24"><path data-hf-id="hf-hrxl" d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#6aa3e8"/></svg><span data-hf-id="hf-7frf" class="nm">Wedding - edit</span><span data-hf-id="hf-s9w5" class="sz">5 items</span></div>
+              <div data-hf-id="hf-2rf2" class="frow"><svg data-hf-id="hf-r9jc" class="fic" viewBox="0 0 24 24"><path data-hf-id="hf-3z4t" d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#6aa3e8"/></svg><span data-hf-id="hf-t81d" class="nm">Home</span><span data-hf-id="hf-g8dl" class="sz">38 items</span></div>
+              <div data-hf-id="hf-35q3" class="frow"><svg data-hf-id="hf-q2m9" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-2ja1" x="3" y="4" width="18" height="16" rx="3" fill="#3f9b5f"/><path data-hf-id="hf-lubl" d="M8 9h8M8 12h8M8 15h5" stroke="#fff" stroke-width="1.6"/></svg><span data-hf-id="hf-solw" class="nm">budget.xlsx</span><span data-hf-id="hf-ljxv" class="sz">44 KB</span></div>
+            </div>
+          </div>
+        </div>
+        <div data-hf-id="hf-m4yk" class="mac-notch"></div>
+      </div>
+      <div data-hf-id="hf-u439" class="mac-base"><div data-hf-id="hf-119i" class="mac-scoop"></div></div>
+      <div data-hf-id="hf-492s" class="pc-bezel"><div data-hf-id="hf-rrz4" class="pc-screen"><div data-hf-id="hf-rd5s" class="pc-wall"></div>
+        <div data-hf-id="hf-g69l" id="v-explorer" class="explorer">
+          <div data-hf-id="hf-eooy" class="win-bar pcbar" style="height: 30px"><span data-hf-id="hf-pqzw">FolderBridge</span><span data-hf-id="hf-iygi" style="letter-spacing: 12px; color: #666">-☐✕</span></div>
+          <div data-hf-id="hf-hzi1" class="addr"><span data-hf-id="hf-8qp5">This PC › Shachar › FolderBridge</span></div>
+          <div data-hf-id="hf-w7th" class="side"><div data-hf-id="hf-t000">Desktop</div><div data-hf-id="hf-we7m">Documents</div><div data-hf-id="hf-tm3x">Downloads</div><div data-hf-id="hf-r35u" class="on"><img data-hf-id="hf-bjpo" src="assets/img/icon-128.png" alt="">FolderBridge</div></div>
+          <div data-hf-id="hf-lwm7" class="main">
+            <div data-hf-id="hf-3k14" class="frow"><svg data-hf-id="hf-qgxa" class="fic" viewBox="0 0 24 24"><path data-hf-id="hf-8fho" d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#f2c14e"/></svg><span data-hf-id="hf-6yuj" class="nm">Wedding - edit</span></div>
+            <div data-hf-id="hf-0rvx" class="frow"><svg data-hf-id="hf-pa07" class="fic" viewBox="0 0 24 24"><path data-hf-id="hf-i77o" d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#f2c14e"/></svg><span data-hf-id="hf-yiud" class="nm">Home</span></div>
+            <div data-hf-id="hf-166y" class="frow"><svg data-hf-id="hf-pob8" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-v8q5" x="3" y="4" width="18" height="16" rx="3" fill="#3f9b5f"/><path data-hf-id="hf-4wd1" d="M8 9h8M8 12h8M8 15h5" stroke="#fff" stroke-width="1.6"/></svg><span data-hf-id="hf-2n58" class="nm">budget.xlsx</span><span data-hf-id="hf-k1oz" class="sz">44 KB</span></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-qmay" class="pc-taskbar"><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i><i data-hf-id="hf-zsm9"></i><span data-hf-id="hf-3snx" class="clock">9:41</span></div></div></div>
+      <div data-hf-id="hf-cwnp" class="pc-neck"></div>
+      <div data-hf-id="hf-e5o0" class="pc-foot"></div>
+
+      <!-- the usual way: up to a cloud and back down -->
+      <svg data-hf-id="hf-1n2n" id="v-cloudlines" viewBox="0 0 1920 1080">
+        <path data-hf-id="hf-w4le" d="M 640 300 C 640 40, 860 -40, 905 -60" fill="none" stroke="#9a9aa8" stroke-width="5" stroke-dasharray="14 12" stroke-linecap="round"/>
+        <path data-hf-id="hf-bp7q" d="M 1290 290 C 1290 40, 1070 -40, 1025 -60" fill="none" stroke="#9a9aa8" stroke-width="5" stroke-dasharray="14 12" stroke-linecap="round"/>
+      </svg>
+      <svg data-hf-id="hf-1peb" id="v-cloud" viewBox="0 0 160 100"><path data-hf-id="hf-uw80" d="M40 88 h86 a28 28 0 0 0 4-55.7 A40 40 0 0 0 54 26 A30 30 0 0 0 40 88 z" fill="#fff" stroke="#9a9aa8" stroke-width="5" stroke-linejoin="round"/><path data-hf-id="hf-yon9" id="v-strike" d="M 18 12 L 142 92" pathLength="1" stroke="#cc3737" stroke-width="9" stroke-linecap="round" stroke-dasharray="1 1"/></svg>
+
+      <!-- straight across instead -->
+      <svg data-hf-id="hf-v87s" id="v-bridge" viewBox="0 0 1920 1080"><path data-hf-id="hf-5p0n" id="v-bridge-path" d="M 700 330 A 265 265 0 1 1 1230 330" pathLength="1" fill="none" stroke="#5550d8" stroke-width="12" stroke-linecap="round" stroke-dasharray="1 1"/></svg>
+      <div data-hf-id="hf-yyqb" id="v-arm" class="arm"><div data-hf-id="hf-iz1f" id="v-rider" class="rider"><div data-hf-id="hf-0et0" id="v-s1" class="scramble">k9#Qx2 ▒ 7fLp@w</div></div></div>
+      <div data-hf-id="hf-6d6b" id="v-arm2" class="arm"><div data-hf-id="hf-f5ab" id="v-rider2" class="rider"><div data-hf-id="hf-e1tb" id="v-s2" class="scramble">Zt4%mB ▒ q8$Rv1</div></div></div>
+      <div data-hf-id="hf-9wlz" id="v-lock"><div data-hf-id="hf-goiq" class="b"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><rect data-hf-id="hf-sjyy" x="5" y="11" width="14" height="10" rx="2"/><path data-hf-id="hf-tdb4" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div></div>
+      <div data-hf-id="hf-e5h8" id="v-lock-label">Encrypted · AES-256</div>
+    </div>
+    <div data-hf-id="hf-h60x" class="grain"></div>
+
+    <!-- frame space: two quiet labels -->
+    <div data-hf-id="hf-1clq" class="v-labels">
+      <div data-hf-id="hf-vf1v" id="v-l1" class="v-label"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><circle data-hf-id="hf-jnj3" cx="12" cy="8" r="4"/><path data-hf-id="hf-2uja" d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/><path data-hf-id="hf-qlrb" d="M3 3l18 18"/></svg>No account</div>
+      <div data-hf-id="hf-tuw5" id="v-l2" class="v-label"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><ellipse data-hf-id="hf-9ao4" cx="12" cy="6" rx="8" ry="3"/><path data-hf-id="hf-x3ka" d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path data-hf-id="hf-2jsm" d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>No storage limit</div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Scene time = film time - 69.8
+    const cam = (t, cx, cy, s, d, ease) => tl.to("#v-stage", { x: 960 - cx * s, y: 540 - cy * s, scale: s, duration: d, ease: ease || "power2.inOut" }, t);
+    gsap.set("#v-stage", { transformOrigin: "0 0", x: 960 - 960 * 0.98, y: 540 - 400 * 0.98, scale: 0.98 });
+    gsap.set(["#v-lock", "#v-lock-label", "#v-s1", "#v-s2", "#v-l1", "#v-l2"], { opacity: 0 });
+    gsap.set(["#v-strike", "#v-bridge-path"], { strokeDashoffset: 1 });
+    gsap.set(["#v-arm", "#v-arm2"], { rotation: -1.08 });
+    gsap.set(["#v-rider", "#v-rider2"], { rotation: 1.08 });
+    gsap.set(["#v-s1", "#v-s2"], { xPercent: -50, yPercent: -50 });
+
+    // "it never goes through the cloud"
+    tl.fromTo(["#v-cloud", "#v-cloudlines"], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0.2);
+    tl.to("#v-strike", { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, 1.75);
+    tl.to(["#v-cloud", "#v-cloudlines"], { opacity: 0, y: -60, duration: 0.45, ease: "power3.in" }, 2.3);
+    cam(2.3, 960, 430, 1.04, 0.8);
+
+    // "No account, no storage limit"
+    tl.fromTo("#v-l1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 3.25);
+    tl.fromTo("#v-l2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 4.67);
+    tl.to(["#v-l1", "#v-l2"], { opacity: 0, y: 10, duration: 0.25, ease: "power3.in" }, 6.1);
+
+    // "Your computers talk directly, encrypted, on your own network"
+    cam(6.1, 960, 455, 1.1, 0.8);
+    tl.to("#v-bridge-path", { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 6.15);
+    tl.to("#v-s1", { opacity: 1, duration: 0.15 }, 6.84);
+    tl.to("#v-arm", { rotation: 181.08, duration: 1.0, ease: "power1.inOut" }, 6.84);
+    tl.to("#v-rider", { rotation: -181.08, duration: 1.0, ease: "power1.inOut" }, 6.84);
+    tl.to("#v-s1", { opacity: 0, duration: 0.15 }, 7.74);
+    tl.set("#v-arm2", { rotation: 181.08 }, 7.2);
+    tl.set("#v-rider2", { rotation: -181.08 }, 7.2);
+    tl.to("#v-s2", { opacity: 1, duration: 0.15 }, 7.25);
+    tl.to("#v-arm2", { rotation: -1.08, duration: 1.0, ease: "power1.inOut" }, 7.25);
+    tl.to("#v-rider2", { rotation: 1.08, duration: 1.0, ease: "power1.inOut" }, 7.25);
+    tl.to("#v-s2", { opacity: 0, duration: 0.15 }, 8.15);
+    tl.fromTo("#v-lock", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 7.64);
+    tl.fromTo("#v-lock-label", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 7.7);
+    window.__timelines["privacy"] = tl;
+  </script>
+</template>

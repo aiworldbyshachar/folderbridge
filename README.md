@@ -6,13 +6,13 @@
 Free, open-source folder sync over your home Wi-Fi - one folder, identical on both computers. No cloud, no account, no storage limit.</p>
 
 <p align="center">
-  <a href="https://aiworldbyshachar.github.io/folderbridge/">Website</a> ·
+  <a href="https://aiworldbyshachar.github.io/folderbridge/">Website &amp; demo video</a> ·
   <a href="https://github.com/aiworldbyshachar/folderbridge/releases/latest/download/FolderBridge-Windows-Setup.exe">Download for Windows</a> ·
   <a href="https://github.com/aiworldbyshachar/folderbridge/releases/latest/download/FolderBridge-macOS.dmg">Download for Mac</a> ·
   <a href="README.he.md">עברית</a>
 </p>
 
-<p align="center"><a href="https://aiworldbyshachar.github.io/folderbridge/"><img src="docs/media/hero.jpg" width="760" alt="FolderBridge on a Mac and on a PC: a video added on the Mac is arriving on the PC"></a></p>
+<p align="center"><a href="https://aiworldbyshachar.github.io/folderbridge/#demo"><img src="docs/media/poster.jpg" width="760" alt="FolderBridge demo video - a wedding video saved on a MacBook crosses a bridge to a PC"></a></p>
 
 ---
 
@@ -94,6 +94,10 @@ npm run dist:mac     # macOS app → dist/ (on a Mac)
 On a Mac, `bash scripts/build-mac.sh` builds the app and installs it into `/Applications` in one step. `node dev/cli.js --folder <path>` runs the sync engine without the app window, and `node dev/serve.js` previews the window in a browser with sample data.
 
 Releases are built by GitHub Actions: pushing a tag like `v1.0.0` builds both installers and publishes them (`.github/workflows/release.yml`).
+
+### The demo video
+
+The film on the website is code too: [`video/`](video) is a [HyperFrames](https://hyperframes.heygen.com) project (HTML + GSAP rendered to MP4), with narration, music and sound effects from ElevenLabs. Its UI is rebuilt from the app's own stylesheet and translations (`video/tools/make-languages.mjs` writes the six-language scene from `src/shared/i18n.js`). To regenerate the audio you need your own ElevenLabs key in `.env` (`ELEVENLABS_API_KEY=…`, never committed); see `video/tools/elevenlabs.mjs`. The UI font is Segoe UI loaded from the system, so renders are made on Windows.
 
 ## Contributing
 

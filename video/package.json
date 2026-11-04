@@ -1,0 +1,11 @@
+{
+  "name": "folderbridge-film",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.9.10 preview",
+    "check": "npx --yes hyperframes@0.9.10 check",
+    "render": "npx --yes hyperframes@0.9.10 render",
+    "snapshot": "npx --yes hyperframes@0.9.10 snapshot"
+  }
+}

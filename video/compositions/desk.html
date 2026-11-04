@@ -1,0 +1,277 @@
+<template>
+  <link rel="stylesheet" href="assets/ui.css">
+  <style>
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI"); font-weight: 400; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Semibold"); font-weight: 600; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Bold"); font-weight: 700; }
+    @font-face { font-family: "CB Mono"; src: local("Consolas"); font-weight: 400; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f1ece4; }
+    #d-world { position: absolute; inset: 0; }
+    .mac-screen .dim, .pc-screen .dim { position: absolute; inset: 0; background: #000; }
+    /* Mac: Finder with the wedding folder */
+    #d-finder { left: 40px; top: 40px; width: 610px; height: 344px; }
+    #d-finder .main .h { font-size: 15px; font-weight: 700; margin: 2px 0 8px 8px; }
+    /* PC, before: a video editor waiting for the file */
+    #d-editor { position: absolute; left: 34px; top: 26px; width: 700px; height: 350px; background: #f7f7f9; border-radius: 8px; box-shadow: 0 8px 26px rgba(20, 20, 40, 0.18); overflow: hidden; font-family: "CB Sans"; color: #333; }
+    #d-editor .bar { height: 30px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; background: #fff; border-bottom: 1px solid #e6e6ea; font-size: 12px; font-weight: 600; }
+    #d-editor .bin { position: absolute; left: 14px; top: 44px; width: 220px; height: 170px; border-radius: 8px; border: 2px dashed #c8c8d2; display: grid; place-items: center; text-align: center; font-size: 13px; color: #66666e; }
+    #d-editor .view { position: absolute; left: 250px; top: 44px; right: 14px; height: 170px; border-radius: 8px; background: #2a2b30; }
+    #d-editor .tracks { position: absolute; left: 14px; right: 14px; top: 228px; bottom: 14px; border-radius: 8px; background: #fff; border: 1px solid #e6e6ea; }
+    #d-editor .tracks i { position: absolute; left: 10px; right: 10px; height: 26px; border-radius: 4px; background: #f0f0f4; display: block; }
+    /* PC, after: File Explorer on the FolderBridge folder + the FolderBridge window */
+    #d-explorer { left: 8px; top: 20px; width: 360px; height: 330px; }
+    #d-explorer .side { width: 120px; }
+    #d-explorer .main { left: 120px; }
+    #d-x-empty { position: absolute; left: 20px; top: 40px; font-size: 12.5px; color: #66666e; }
+    #d-fb { left: 376px; top: 28px; transform: scale(0.78); }
+    #d-fb .fb-card { margin-bottom: 14px; }
+    .sync-wrap { position: relative; }
+    #d-sync-busy { position: absolute; left: 0; right: 0; top: 0; margin-top: 0; background: #fff; }
+    #d-bridge { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    .arm { position: absolute; left: 965px; top: 325px; width: 0; height: 0; }
+    .arm .rider { position: absolute; left: -265px; top: 0; width: 0; height: 0; }
+    #d-card { left: 0; top: 0; gap: 12px; padding: 14px 20px; font-size: 22px; }
+    #d-card .fic { width: 40px; height: 40px; }
+    #d-card small { font-size: 16px; }
+    #d-folder { position: absolute; left: 0; top: 0; width: 120px; height: 96px; }
+    #d-ghost { position: absolute; left: 0; top: 0; width: 200px; background: #d7e5fb; font-family: "CB Sans"; box-shadow: 0 8px 20px rgba(20, 20, 40, 0.2); }
+    #d-icon { position: absolute; left: 0; top: 0; width: 200px; height: 200px; }
+    #d-word { position: absolute; left: 677px; top: 462px; height: 160px; font-size: 136px; line-height: 1; white-space: nowrap; }
+  </style>
+
+  <div data-hf-id="hf-t81e" id="root" data-composition-id="desk" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-9j3g" id="d-world" class="world-desk" data-layout-allow-overflow>
+      <div data-hf-id="hf-zxkq" id="d-stage" class="stage" data-layout-allow-overflow>
+        <div data-hf-id="hf-a9vw" class="wall"></div>
+        <div data-hf-id="hf-uoel" class="desk-top"></div>
+
+        <!-- MacBook Air -->
+        <div data-hf-id="hf-axil" class="mac-lid">
+          <div data-hf-id="hf-fpsy" class="mac-screen">
+            <div data-hf-id="hf-4em6" class="mac-wall"></div>
+            <div data-hf-id="hf-1mn2" class="mac-menubar"><span data-hf-id="hf-29sp">Finder</span><span data-hf-id="hf-h618" style="font-weight: 400">File</span><span data-hf-id="hf-yvs6" style="font-weight: 400">Edit</span><span data-hf-id="hf-760z" style="font-weight: 400">View</span>
+              <span data-hf-id="hf-e6xl" class="right"><img data-hf-id="hf-6uz4" id="d-tray" class="tray" src="assets/img/icon-128.png" alt=""><span data-hf-id="hf-ndxo">Thu 9:41</span></span></div>
+            <div data-hf-id="hf-kntb" id="d-finder" class="finder">
+              <div data-hf-id="hf-3va2" class="win-bar"><span data-hf-id="hf-r6mh" class="dots"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i></span><span data-hf-id="hf-nwx4">Wedding - edit</span></div>
+              <div data-hf-id="hf-cww1" class="side">
+                <div data-hf-id="hf-9b60">Desktop</div><div data-hf-id="hf-wjxq">Documents</div><div data-hf-id="hf-e3ix">Downloads</div><div data-hf-id="hf-a71q" class="on">Wedding - edit</div>
+                <div data-hf-id="hf-wz4j" id="d-side-fb"><img data-hf-id="hf-o86s" src="assets/img/icon-128.png" alt="">FolderBridge</div>
+              </div>
+              <div data-hf-id="hf-k15r" class="main">
+                <div data-hf-id="hf-ibwx" class="h">Wedding - edit</div>
+                <div data-hf-id="hf-mz11" id="d-row-video" class="frow">
+                  <svg data-hf-id="hf-cv8w" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-eduu" x="3" y="4" width="18" height="16" rx="3" fill="#7c5cf0"/><path data-hf-id="hf-erbh" d="M10 9l5 3-5 3z" fill="#fff"/></svg>
+                  <span data-hf-id="hf-rh26" class="nm">wedding-film.mp4</span><span data-hf-id="hf-2x9b" class="sz">2.4 GB</span>
+                </div>
+                <div data-hf-id="hf-dbbe" class="frow"><svg data-hf-id="hf-r9jc" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-i2rh" x="3" y="4" width="18" height="16" rx="3" fill="#e8a24a"/><circle data-hf-id="hf-6lln" cx="9" cy="10" r="2" fill="#fff"/><path data-hf-id="hf-jatu" d="M5 18l5-5 3 3 2-2 4 4z" fill="#fff"/></svg><span data-hf-id="hf-fp5h" class="nm">IMG_2040.jpg</span><span data-hf-id="hf-sue4" class="sz">2.9 MB</span></div>
+                <div data-hf-id="hf-2rf2" class="frow"><svg data-hf-id="hf-q2m9" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-q07l" x="3" y="4" width="18" height="16" rx="3" fill="#e8a24a"/><circle data-hf-id="hf-k84b" cx="9" cy="10" r="2" fill="#fff"/><path data-hf-id="hf-ky52" d="M5 18l5-5 3 3 2-2 4 4z" fill="#fff"/></svg><span data-hf-id="hf-lg86" class="nm">IMG_2041.jpg</span><span data-hf-id="hf-71lh" class="sz">3.1 MB</span></div>
+                <div data-hf-id="hf-35q3" class="frow"><svg data-hf-id="hf-qgxa" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-nko6" x="3" y="4" width="18" height="16" rx="3" fill="#3aa7c9"/><path data-hf-id="hf-jdcd" d="M10 15V8l6-1.5v7" fill="none" stroke="#fff" stroke-width="1.6"/><circle data-hf-id="hf-5l8e" cx="9" cy="15.5" r="1.6" fill="#fff"/><circle data-hf-id="hf-a4h7" cx="15" cy="14" r="1.6" fill="#fff"/></svg><span data-hf-id="hf-c3s8" class="nm">first-dance.m4a</span><span data-hf-id="hf-kqv3" class="sz">6.2 MB</span></div>
+              </div>
+            </div>
+            <div data-hf-id="hf-ep6f" id="d-mac-dim" class="dim"></div>
+          </div>
+          <div data-hf-id="hf-m4yk" class="mac-notch"></div>
+        </div>
+        <div data-hf-id="hf-u439" class="mac-base"><div data-hf-id="hf-119i" class="mac-scoop"></div></div>
+
+        <!-- PC monitor -->
+        <div data-hf-id="hf-492s" class="pc-bezel">
+          <div data-hf-id="hf-rrz4" class="pc-screen">
+            <div data-hf-id="hf-rd5s" class="pc-wall"></div>
+            <div data-hf-id="hf-yus7" id="d-editor">
+              <div data-hf-id="hf-ufsv" class="bar"><span data-hf-id="hf-vmxa">Video Editor - Wedding</span><span data-hf-id="hf-iygi" style="letter-spacing: 12px; color: #666">-☐✕</span></div>
+              <div data-hf-id="hf-xwu8" id="d-bin" class="bin">Drop media here</div>
+              <div data-hf-id="hf-z18r" class="view"></div>
+              <div data-hf-id="hf-u5d0" class="tracks"><i data-hf-id="hf-v7in" style="top: 14px"></i><i data-hf-id="hf-2uuk" style="top: 48px"></i><i data-hf-id="hf-uqei" style="top: 82px"></i></div>
+            </div>
+
+            <div data-hf-id="hf-82mv" id="d-explorer" class="explorer">
+              <div data-hf-id="hf-eooy" class="win-bar pcbar" style="height: 30px"><span data-hf-id="hf-36c4">FolderBridge</span><span data-hf-id="hf-sddi" style="letter-spacing: 12px; color: #666">-☐✕</span></div>
+              <div data-hf-id="hf-hzi1" class="addr"><span data-hf-id="hf-8qp5">This PC › Shachar › FolderBridge</span></div>
+              <div data-hf-id="hf-w7th" class="side"><div data-hf-id="hf-t000">Desktop</div><div data-hf-id="hf-we7m">Documents</div><div data-hf-id="hf-tm3x">Downloads</div><div data-hf-id="hf-sau6" class="on"><img data-hf-id="hf-bjpo" src="assets/img/icon-128.png" alt="">FolderBridge</div></div>
+              <div data-hf-id="hf-lwm7" class="main">
+                <div data-hf-id="hf-wyii" id="d-x-row" class="frow new">
+                  <svg data-hf-id="hf-pa07" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-01m2" x="3" y="4" width="18" height="16" rx="3" fill="#7c5cf0"/><path data-hf-id="hf-jy81" d="M10 9l5 3-5 3z" fill="#fff"/></svg>
+                  <span data-hf-id="hf-rqiq" class="nm">wedding-film.mp4</span><span data-hf-id="hf-61te" id="d-x-size" class="sz">2.4 GB</span>
+                </div>
+                <div data-hf-id="hf-0l2t" id="d-x-empty">This folder is empty.</div>
+              </div>
+            </div>
+
+            <!-- the real FolderBridge window (src/renderer), scaled down on the PC's screen -->
+            <div data-hf-id="hf-wv2s" id="d-fb" class="cb cb-window">
+              <div data-hf-id="hf-vxkc" class="cb-titlebar">FolderBridge<span data-hf-id="hf-b0ut" class="x">-☐✕</span></div>
+              <div data-hf-id="hf-pgs8" class="cb-topbar">
+                <div data-hf-id="hf-k1di" class="cb-brand"><img data-hf-id="hf-acsl" src="assets/img/icon-128.png" alt="">FolderBridge</div>
+                <span data-hf-id="hf-1fwz" class="cb-status"><span data-hf-id="hf-v07c" class="cb-dot"></span>Connected to MacBook Air</span>
+              </div>
+              <div data-hf-id="hf-jfr7" class="fb-card">
+                <div data-hf-id="hf-530n" class="fb-head">
+                  <span data-hf-id="hf-6sh3" class="fb-ficon"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><path data-hf-id="hf-wa3v" d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4.2l2 2H19a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/></svg></span>
+                  <div data-hf-id="hf-s6t0" class="fb-ftext"><b data-hf-id="hf-7l4o">FolderBridge</b><small data-hf-id="hf-pjl0">C:\Users\Shachar\FolderBridge</small></div>
+                  <span data-hf-id="hf-ohxx" class="cb-btn primary">Open folder</span>
+                </div>
+                <div data-hf-id="hf-fjju" class="sync-wrap">
+                  <div data-hf-id="hf-hpkm" class="fb-sync ok">
+                    <span data-hf-id="hf-gwsm" class="fb-sicon"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><path data-hf-id="hf-lvfk" d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+                    <span data-hf-id="hf-dhnw" class="fb-stext"><b data-hf-id="hf-2i1r">Up to date</b><small data-hf-id="hf-o59k" id="d-files">0 files</small></span>
+                  </div>
+                  <div data-hf-id="hf-voll" id="d-sync-busy" class="fb-sync busy" data-layout-allow-overlap>
+                    <span data-hf-id="hf-nfgq" class="fb-sicon"><svg data-hf-id="hf-i7fq" id="d-spin" viewBox="0 0 24 24"><path data-hf-id="hf-vhb8" d="M20 12a8 8 0 0 1-14.2 5M4 12a8 8 0 0 1 14.2-5"/><path data-hf-id="hf-1zb4" d="M18.5 3v4h-4M5.5 21v-4h4"/></svg></span>
+                    <span data-hf-id="hf-4e9w" class="fb-stext"><b data-hf-id="hf-nywl">Syncing 1 file</b><small data-hf-id="hf-4wty">wedding-film.mp4 from MacBook Air</small></span>
+                  </div>
+                </div>
+                <div data-hf-id="hf-ts4i" id="d-progress" class="fb-progress"><i data-hf-id="hf-puwn" id="d-bar"></i></div>
+                <div data-hf-id="hf-aqxx" class="fb-devs"><span data-hf-id="hf-8697" class="fb-dev"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><rect data-hf-id="hf-mz2z" x="4" y="5" width="16" height="11" rx="1.5"/><path data-hf-id="hf-7736" d="M2 19.5h20"/></svg>MacBook Air<span data-hf-id="hf-xzy8" class="cb-dot"></span></span></div>
+              </div>
+            </div>
+            <div data-hf-id="hf-qmay" class="pc-taskbar"><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i><i data-hf-id="hf-zsm9"></i><span data-hf-id="hf-3snx" class="clock">9:41</span></div>
+            <div data-hf-id="hf-4u9r" id="d-pc-dim" class="dim"></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-cwnp" class="pc-neck"></div>
+        <div data-hf-id="hf-e5o0" class="pc-foot"></div>
+
+        <!-- the bridge: an arch centred at (965, 325), radius 265, from the Mac screen to the PC screen -->
+        <svg data-hf-id="hf-sp46" id="d-bridge" viewBox="0 0 1920 1080">
+          <path data-hf-id="hf-dpq9" id="d-bridge-path" d="M 700 330 A 265 265 0 1 1 1230 330" pathLength="1" fill="none" stroke="#5550d8" stroke-width="12" stroke-linecap="round" stroke-dasharray="1 1" />
+        </svg>
+
+        <!-- the video, stuck on the Mac -->
+        <div data-hf-id="hf-56mv" id="d-card" class="vfile" data-layout-allow-overlap>
+          <svg data-hf-id="hf-pob8" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-0fx3" x="3" y="4" width="18" height="16" rx="3" fill="#7c5cf0"/><path data-hf-id="hf-l554" d="M10 9l5 3-5 3z" fill="#fff"/></svg>
+          <span data-hf-id="hf-nq1h">wedding-film.mp4<small data-hf-id="hf-aaz9">2.4 GB</small></span>
+        </div>
+
+        <!-- the folder that rides the bridge, with the video inside -->
+        <div data-hf-id="hf-urwt" id="d-arm" class="arm"><div data-hf-id="hf-mf2l" id="d-rider" class="rider">
+          <svg data-hf-id="hf-39gq" id="d-folder" viewBox="0 0 120 96"><path data-hf-id="hf-vyx4" d="M8 18a8 8 0 0 1 8-8h30l10 10h48a8 8 0 0 1 8 8v52a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8z" fill="#fff" stroke="#d9dae3" stroke-width="2"/><rect data-hf-id="hf-2p7j" x="38" y="40" width="44" height="30" rx="5" fill="#7c5cf0"/><path data-hf-id="hf-3rda" d="M56 48l10 7-10 7z" fill="#fff"/></svg>
+        </div></div>
+
+        <!-- dragging the video onto the FolderBridge folder -->
+        <div data-hf-id="hf-qoj0" id="d-ghost" class="frow" data-layout-allow-overlap>
+          <svg data-hf-id="hf-ohe5" class="fic" viewBox="0 0 24 24"><rect data-hf-id="hf-0u84" x="3" y="4" width="18" height="16" rx="3" fill="#7c5cf0"/><path data-hf-id="hf-kqu3" d="M10 9l5 3-5 3z" fill="#fff"/></svg>
+          <span data-hf-id="hf-s4tr" class="nm">wedding-film.mp4</span>
+        </div>
+
+        <svg data-hf-id="hf-ii6m" id="d-cursor" class="cursor" viewBox="0 0 22 32" style="width: 36px; height: 52px"><path data-hf-id="hf-geat" d="M2 2 L2 26 L8 20 L12 30 L16 28 L12 18.5 L20 18.5 Z" fill="#111" stroke="#fff" stroke-width="2" stroke-linejoin="round" /></svg>
+      </div>
+      <div data-hf-id="hf-h60x" class="grain"></div>
+    </div>
+
+    <!-- frame space -->
+    <img data-hf-id="hf-om7a" id="d-icon" src="assets/img/icon-1024.png" alt="">
+    <div data-hf-id="hf-9qqg" id="d-word" class="display">FolderBridge</div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Camera: put stage point (cx, cy) at the frame centre at scale s.
+    const cam = (t, cx, cy, s, d, ease) =>
+      tl.to("#d-stage", { x: 960 - cx * s, y: 540 - cy * s, scale: s, duration: d, ease: ease || "power2.inOut" }, t);
+    const whip = (t, d) => tl.fromTo("#d-stage", { filter: "blur(0px)" }, { filter: "blur(10px)", duration: d / 2, ease: "power2.in", yoyo: true, repeat: 1 }, t);
+    const click = (sel, t) => tl.to(sel, { scale: 0.95, duration: 0.07, yoyo: true, repeat: 1, ease: "power2.out" }, t);
+
+    // Stage coordinates: the Mac screen's origin is (166, 276), the PC screen's (1026, 176).
+    // Finder's video row: (360, 384), 34 px tall. Finder's sidebar "FolderBridge": (214, 450).
+    // FolderBridge window on the PC: (1402, 204) to (1792, 430). Explorer's first row: (1166, 268) to (1382, 302).
+
+    // ----- initial state: the world before FolderBridge -----
+    gsap.set("#d-stage", { transformOrigin: "0 0", x: 960 - 960 * 1.14, y: 540 - 455 * 1.14, scale: 1.14 });
+    gsap.set(["#d-mac-dim", "#d-pc-dim"], { opacity: 0.3 });
+    gsap.set(["#d-card", "#d-explorer", "#d-fb", "#d-x-row", "#d-sync-busy", "#d-progress", "#d-icon", "#d-word", "#d-ghost", "#d-side-fb", "#d-tray", "#d-folder"], { opacity: 0 });
+    gsap.set("#d-bar", { scaleX: 0 });
+    gsap.set("#d-bridge-path", { strokeDashoffset: 1 });
+    gsap.set("#d-cursor", { x: 700, y: 760, opacity: 0 });
+    gsap.set("#d-card", { x: 330, y: 372 });
+    gsap.set("#d-arm", { rotation: -1.08 });
+    gsap.set("#d-rider", { rotation: 1.08 });
+    gsap.set("#d-folder", { xPercent: -50, yPercent: -50, scale: 0.75 });
+
+    // ----- S1: two computers, one desk -----
+    cam(0, 960, 455, 1.1, 3.0);
+    tl.to("#d-mac-dim", { opacity: 0, duration: 0.35, ease: "power2.out" }, 3.5);
+    tl.to("#d-pc-dim", { opacity: 0, duration: 0.35, ease: "power2.out" }, 4.93);
+
+    // "the wedding video is on the Mac": it's selected in Finder
+    cam(6.2, 470, 440, 1.7, 0.9);
+    tl.to("#d-cursor", { opacity: 1, duration: 0.15 }, 6.5);
+    tl.to("#d-cursor", { x: 455, y: 392, duration: 0.6, ease: "expo.out" }, 6.5);
+    tl.set("#d-row-video", { backgroundColor: "#d7e5fb" }, 7.05);
+    click("#d-row-video", 7.05);
+    tl.to("#d-cursor", { opacity: 0, duration: 0.2 }, 7.8);
+
+    // "the editing is on the PC": the editor is waiting, empty
+    cam(8.3, 1410, 385, 1.6, 0.9);
+    tl.fromTo("#d-bin", { borderColor: "#c8c8d2" }, { borderColor: "#5550d8", duration: 0.3, yoyo: true, repeat: 3, ease: "power1.inOut" }, 9.0);
+
+    // "two point four gigabytes... on the wrong computer": the video can't leave the Mac
+    cam(10.0, 960, 455, 1.1, 0.9);
+    tl.fromTo("#d-card", { opacity: 0, y: 380, scale: 0.92 }, { opacity: 1, y: 360, scale: 1, duration: 0.45, ease: "expo.out" }, 10.5);
+    tl.to("#d-card", { x: 600, duration: 0.45, ease: "power3.in" }, 12.86);
+    tl.to("#d-card", { x: 570, scaleX: 0.97, duration: 0.14, ease: "power2.out" }, 13.31);
+    tl.to("#d-card", { x: 582, scaleX: 1, duration: 0.5, ease: "elastic.out(1, 0.5)" }, 13.45);
+
+    // ----- S3 (the detours overlay covers 15.2-24.0): what if both computers shared one folder? -----
+    tl.to("#d-stage", { scale: 1.12, x: 960 - 960 * 1.12, y: 540 - 455 * 1.12, duration: 1.4, ease: "power2.inOut" }, 25.0);
+    tl.to("#d-bridge-path", { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 26.41);
+    // the stuck video drops into a folder at the bridge's foot, and the folder rides across
+    tl.to("#d-card", { x: 559, y: 298, scale: 0.4, opacity: 0, duration: 0.32, ease: "power2.in" }, 26.72);
+    tl.fromTo("#d-folder", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 0.75, duration: 0.25, ease: "expo.out" }, 26.86);
+    tl.to("#d-arm", { rotation: 181.08, duration: 0.75, ease: "power2.inOut" }, 27.06);
+    tl.to("#d-rider", { rotation: -181.08, duration: 0.75, ease: "power2.inOut" }, 27.06);
+    tl.to("#d-folder", { opacity: 0, scale: 0.4, duration: 0.2, ease: "power3.in" }, 27.84);
+    tl.fromTo("#d-bin", { backgroundColor: "rgba(85,80,216,0)" }, { backgroundColor: "rgba(85,80,216,0.14)", duration: 0.3, ease: "power2.out", yoyo: true, repeat: 1, repeatDelay: 0.3 }, 27.9);
+
+    // "This is FolderBridge": the apex becomes the icon, the desk falls away
+    // the apex is stage (965, 60): at scale 1.12 around y 455 that is frame (965.6, 97.6)
+    tl.fromTo("#d-icon", { opacity: 0, x: 965.6 - 100, y: 97.6 - 100, scale: 0 }, { opacity: 1, scale: 0.4, duration: 0.35, ease: "expo.out" }, 28.75);
+    tl.to("#d-icon", { x: 441, y: 440, scale: 1, duration: 0.58, ease: "power2.inOut" }, 29.1);
+    tl.to("#d-world", { opacity: 0, filter: "blur(14px)", duration: 0.35, ease: "power2.in" }, 29.1);
+    tl.fromTo("#d-word", { opacity: 1, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out" }, 29.28);
+    tl.to(["#d-icon", "#d-word"], { opacity: 0, scale: 0.94, duration: 0.25, ease: "power3.in" }, 30.0);
+
+    // ----- S4: save on your Mac, open on your PC (FolderBridge now on both) -----
+    tl.set("#d-bridge", { opacity: 0 }, 30.2);
+    tl.set(["#d-side-fb", "#d-tray", "#d-explorer", "#d-fb"], { opacity: 1 }, 30.2);
+    tl.set("#d-editor", { opacity: 0 }, 30.2);
+    tl.set("#d-row-video", { backgroundColor: "rgba(0,0,0,0)" }, 30.2);
+    cam(30.2, 470, 440, 1.7, 0.01);
+    tl.to("#d-world", { opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, 30.25);
+    // "Save on your Mac": the FolderBridge folder in Finder's sidebar
+    tl.fromTo("#d-side-fb", { backgroundColor: "rgba(85,80,216,0)" }, { backgroundColor: "rgba(85,80,216,0.16)", duration: 0.3, yoyo: true, repeat: 1, repeatDelay: 0.4 }, 31.1);
+    // "Open on your PC": the same folder in File Explorer, still empty, and FolderBridge beside it
+    cam(31.75, 1410, 380, 1.55, 0.5, "power3.inOut");
+    whip(31.75, 0.5);
+    // "Put a file in the FolderBridge folder": drag the video onto it
+    cam(33.4, 400, 430, 1.75, 0.5, "power3.inOut");
+    whip(33.4, 0.5);
+    tl.set("#d-cursor", { x: 455, y: 392, opacity: 1 }, 33.95);
+    tl.set("#d-row-video", { backgroundColor: "#d7e5fb" }, 34.05);
+    click("#d-row-video", 34.05);
+    tl.set("#d-ghost", { x: 447, y: 408 }, 34.25);
+    tl.to("#d-ghost", { opacity: 0.8, duration: 0.15 }, 34.25);
+    tl.to("#d-cursor", { x: 236, y: 462, duration: 1.0, ease: "power2.inOut" }, 34.35);
+    tl.to("#d-ghost", { x: 228, y: 478, duration: 1.0, ease: "power2.inOut" }, 34.35);
+    tl.to("#d-side-fb", { backgroundColor: "rgba(85,80,216,0.24)", duration: 0.2 }, 35.15);
+    tl.to("#d-ghost", { opacity: 0, scale: 0.6, duration: 0.2, ease: "power3.in" }, 35.76);
+    tl.to("#d-side-fb", { backgroundColor: "rgba(85,80,216,0)", duration: 0.4 }, 36.0);
+    tl.to("#d-cursor", { opacity: 0, duration: 0.2 }, 36.0);
+    // "a moment later": the PC's FolderBridge window receives it
+    cam(36.35, 1597, 317, 2.5, 0.5, "power3.inOut");
+    whip(36.35, 0.5);
+    tl.set(["#d-sync-busy", "#d-progress"], { opacity: 1 }, 36.79);
+    tl.to("#d-spin", { rotation: 540, transformOrigin: "50% 50%", duration: 1.5, ease: "none" }, 36.79);
+    tl.to("#d-bar", { scaleX: 1, duration: 1.35, ease: "power1.inOut" }, 36.8);
+    // "it's on the other computer": up to date, and the video is in the folder
+    tl.set(["#d-sync-busy", "#d-progress", "#d-x-empty"], { opacity: 0 }, 38.24);
+    tl.set("#d-files", { textContent: "1 file" }, 38.24);
+    cam(38.24, 1430, 300, 1.95, 0.8);
+    tl.fromTo("#d-x-row", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 38.4);
+    // "Even a video this big"
+    cam(39.1, 1274, 290, 2.45, 1.6);
+    tl.fromTo("#d-x-size", { color: "#8a8a93" }, { color: "#5550d8", duration: 0.25, ease: "power2.out" }, 40.4);
+
+    window.__timelines["desk"] = tl;
+  </script>
+</template>

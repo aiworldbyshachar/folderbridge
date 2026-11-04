@@ -1,0 +1,69 @@
+<template>
+  <link rel="stylesheet" href="assets/ui.css">
+  <style>
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI"); font-weight: 400; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Semibold"); font-weight: 600; }
+    @font-face { font-family: "CB Sans"; src: local("Segoe UI Bold"); font-weight: 700; }
+    @font-face { font-family: "CB Mono"; src: local("Consolas"); font-weight: 400; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f5f5f8; }
+    #e-arch { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    #e-icon { position: absolute; left: 0; top: 0; width: 180px; height: 180px; }
+    #e-word { position: absolute; left: 647px; top: 312px; height: 173px; font-size: 140px; line-height: 1; white-space: nowrap; }
+    #e-tag { position: absolute; left: 0; right: 0; top: 540px; text-align: center; font: 600 46px "CB Sans"; color: #676778; }
+    #e-tag span { display: inline-block; }
+    #e-line { position: absolute; left: 0; right: 0; top: 640px; display: flex; justify-content: center; align-items: center; gap: 26px; font: 600 38px "CB Sans"; color: #191923; }
+    #e-line .p { display: inline-flex; align-items: center; gap: 12px; }
+    #e-line svg { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    #e-line .dot { color: #9898a7; }
+    #e-cta { position: absolute; left: 0; right: 0; top: 770px; display: flex; justify-content: center; align-items: center; gap: 30px; }
+    #e-btn { display: inline-flex; align-items: center; gap: 14px; height: 84px; padding: 0 38px; border-radius: 16px; background: #5550d8; color: #fff; font: 700 36px "CB Sans"; }
+    #e-btn svg { width: 34px; height: 34px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    #e-url { font: 400 36px "CB Mono", monospace; color: #191923; }
+    #e-cursor { width: 44px; height: 64px; }
+  </style>
+
+  <div data-hf-id="hf-32ii" id="root" data-composition-id="endcard" data-width="1920" data-height="1080">
+    <svg data-hf-id="hf-ftd2" id="e-arch" viewBox="0 0 1920 1080"><path data-hf-id="hf-b7xl" id="e-arch-path" d="M 700 560 A 265 265 0 1 1 1230 560" fill="none" stroke="#5550d8" stroke-width="12" stroke-linecap="round" /></svg>
+    <img data-hf-id="hf-lg5n" id="e-icon" src="assets/img/icon-1024.png" alt="">
+    <div data-hf-id="hf-jhq7" id="e-word" class="display">FolderBridge</div>
+    <div data-hf-id="hf-q61h" id="e-tag"><span data-hf-id="hf-9dlg">Save</span> <span data-hf-id="hf-dnos">on</span> <span data-hf-id="hf-o8wv">one.</span> <span data-hf-id="hf-sxv1">Open</span> <span data-hf-id="hf-8mo4">on</span> <span data-hf-id="hf-3tds">the</span> <span data-hf-id="hf-b6kd">other.</span></div>
+    <div data-hf-id="hf-uf4p" id="e-line">
+      <span data-hf-id="hf-wz2v" id="e-free">Free &amp; open source</span><span data-hf-id="hf-e8q4" class="dot" id="e-dot">·</span>
+      <span data-hf-id="hf-w9dn" class="p" id="e-mac"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><rect data-hf-id="hf-mz2z" x="4" y="5" width="16" height="11" rx="1.5" /><path data-hf-id="hf-7736" d="M2 19.5h20" /></svg>Mac</span>
+      <span data-hf-id="hf-ykp4" class="p" id="e-win"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><rect data-hf-id="hf-w3u4" x="3" y="4" width="18" height="12" rx="1.5" /><path data-hf-id="hf-x8w8" d="M8.5 20h7M12 16v4" /></svg>Windows</span>
+    </div>
+    <div data-hf-id="hf-pisn" id="e-cta">
+      <span data-hf-id="hf-syhy" id="e-btn"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-snn9" d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>Download free</span>
+      <span data-hf-id="hf-h7em" id="e-url" data-var-text="repo-url">github.com/aiworldbyshachar/folderbridge</span>
+    </div>
+    <svg data-hf-id="hf-jflv" id="e-cursor" class="cursor" viewBox="0 0 22 32"><path data-hf-id="hf-geat" d="M2 2 L2 26 L8 20 L12 30 L16 28 L12 18.5 L20 18.5 Z" fill="#111" stroke="#fff" stroke-width="2" stroke-linejoin="round" /></svg>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Scene time = film time - 89.9
+    gsap.set(["#e-word", "#e-tag span", "#e-free", "#e-dot", "#e-mac", "#e-win", "#e-cta"], { opacity: 0 });
+    gsap.set("#e-icon", { x: 966 - 90, y: 295 - 90, scale: 0 });
+    gsap.set("#e-cursor", { x: 1500, y: 1120 });
+
+    // "FolderBridge": the bridge folds into the mark
+    tl.fromTo("#e-arch", { scale: 1, opacity: 1, transformOrigin: "966px 295px" }, { scale: 0, opacity: 0, duration: 0.4, ease: "power3.in" }, 0);
+    tl.to("#e-icon", { scale: 0.55, duration: 0.25, ease: "expo.out" }, 0.1);
+    tl.to("#e-icon", { x: 447, y: 312 - 20, scale: 1, duration: 0.45, ease: "power2.inOut" }, 0.35);
+    tl.fromTo("#e-word", { opacity: 1, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "expo.out" }, 0.74);
+
+    // "Free and open source, for Mac and Windows"
+    tl.fromTo("#e-free", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18 }, 1.03);
+    tl.fromTo("#e-tag span", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07 }, 1.7);
+    tl.to("#e-dot", { opacity: 1, duration: 0.2 }, 3.1);
+    tl.fromTo("#e-mac", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 3.34);
+    tl.fromTo("#e-win", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 3.87);
+
+    // the call to action, held to the end
+    tl.fromTo("#e-cta", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 4.6);
+    tl.to("#e-cursor", { x: 560, y: 830, duration: 0.7, ease: "expo.out" }, 5.3);
+    tl.to("#e-btn", { scale: 0.96, duration: 0.07, yoyo: true, repeat: 1 }, 6.1);
+    tl.to("#e-btn", { backgroundColor: "#4440c2", duration: 0.1 }, 6.12);
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>

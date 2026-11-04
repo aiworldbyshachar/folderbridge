@@ -56,6 +56,8 @@
     .meta a { color: var(--muted); }
     .hero-art { position: relative; border-radius: 18px; overflow: hidden; background: var(--desk); box-shadow: 0 30px 60px rgba(22, 22, 44, 0.12); }
     .hero-art img { display: block; width: 100%; height: auto; }
+    .video { border-radius: 18px; overflow: hidden; background: #000; box-shadow: 0 30px 60px rgba(22, 22, 44, 0.16); }
+    .video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
 
     .rule { margin: 26px 0 8px; display: flex; gap: 16px; align-items: center; padding: 18px 22px; border-radius: 16px; background: var(--accent-soft); color: var(--ink); }
     .rule svg { flex: none; width: 44px; height: 44px; fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; }
@@ -147,6 +149,12 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg>
       <div><b>The one rule: both computers on the same Wi-Fi.</b><span>FolderBridge talks directly between your computers on your local network (Wi-Fi or cable, same router). Changes you make while a computer is away are kept and sync when it's back.</span></div>
     </div>
+
+    <section id="demo">
+      <h2>See it in 100 seconds</h2>
+      <p class="sub">From USB sticks and attachments that are too big to just saving the file.</p>
+      <div class="video"><video controls playsinline preload="metadata" poster="media/poster.jpg?v=1" src="media/folderbridge-demo.mp4?v=1"></video></div>
+    </section>
 
     <section id="how">
       <h2>Connect them once. That's it.</h2>
