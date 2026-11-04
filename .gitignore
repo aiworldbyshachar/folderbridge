@@ -6,6 +6,10 @@ dmg/
 .env
 .claude/
 
+# internal notes: the agent instructions and the planning docs stay local
+/CLAUDE.md
+/planning/
+
 # local working files: marketing images and the CLI demo folders
 marketing/
 dev/sandbox/

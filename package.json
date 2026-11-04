@@ -1,7 +1,7 @@
 {
   "name": "folderbridge",
   "productName": "FolderBridge",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Keep one folder identical on your Mac and your PC over the home network - no cloud, no account",
   "main": "src/main/main.js",
   "author": "aiworldbyshachar",
