@@ -6,13 +6,14 @@
 // so the two apps are easy to tell apart in the taskbar.
 //
 //   node scripts/make-icons.js              the app's icons
-//   node scripts/make-icons.js --variants   hue variants to compare (dev/sandbox/icon-variants)
+//   node scripts/make-icons.js --variants   variants to compare (dev/sandbox/icon-variants)
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
 
-// Degrees the family gradient is rotated on the color wheel (0 = ClipBridge's).
-const HUE_SHIFT = -16;
+// The chosen look: the glyph style and how many degrees the family gradient
+// is rotated on the color wheel (0 = ClipBridge's colors).
+const ICON = { glyph: 'solid', hue: -40 };
 
 const CRC_TABLE = new Uint32Array(256).map((_, n) => {
   let c = n;
@@ -101,6 +102,13 @@ const triangle = (p1, p2, p3) => (x, y) => {
 
 const union = (...shapes) => (x, y) => shapes.some((s) => s(x, y));
 
+// Upper half of a ring: the arch of a bridge.
+const arch = (cx, cy, rOut, rIn) => (x, y) => {
+  if (y > cy) return false;
+  const d = Math.hypot(x - cx, y - cy);
+  return d <= rOut && d >= rIn;
+};
+
 const solid = (hex) => {
   const c = [...hexToRgb(hex), 255];
   return () => c;
@@ -161,30 +169,65 @@ const arrows = (y1, y2, x0, x1, r, head) =>
     triangle([x0 - head * 0.4, y2], [x0 + head * 0.6, y2 - head * 0.75], [x0 + head * 0.6, y2 + head * 0.75])
   );
 
+// Glyph styles:
+//   layered - lavender back panel and tab, white front, indigo arrows
+//   solid   - one white folder shape, indigo arrows
+//   bridge  - one white folder shape, an indigo arch bridge
+const WHITE = solid('#FFFFFF');
+const BLUE = solid(INDIGO);
+
 // Full app icon with the macOS-style margin around the rounded square.
-const appIcon = (shift) => [
-  { shape: roundRect(0.5, 0.5, 0.41, 0.41, 0.19), paint: background(shift) },
-  { shape: roundRect(0.375, 0.335, 0.105, 0.05, 0.035), paint: solid(LAVENDER) }, // tab
-  { shape: roundRect(0.5, 0.45, 0.235, 0.135, 0.045), paint: solid(LAVENDER) }, // back
-  { shape: roundRect(0.5, 0.585, 0.255, 0.165, 0.05), paint: solid('#FFFFFF') }, // front
-  { shape: arrows(0.545, 0.645, 0.395, 0.6, 0.024, 0.075), paint: solid(INDIGO) },
-];
+function appIcon({ glyph, hue }) {
+  const bg = { shape: roundRect(0.5, 0.5, 0.41, 0.41, 0.19), paint: background(hue) };
+  if (glyph === 'layered') {
+    return [
+      bg,
+      { shape: roundRect(0.375, 0.335, 0.105, 0.05, 0.035), paint: solid(LAVENDER) }, // tab
+      { shape: roundRect(0.5, 0.45, 0.235, 0.135, 0.045), paint: solid(LAVENDER) }, // back
+      { shape: roundRect(0.5, 0.585, 0.255, 0.165, 0.05), paint: WHITE }, // front
+      { shape: arrows(0.545, 0.645, 0.395, 0.6, 0.024, 0.075), paint: BLUE },
+    ];
+  }
+  const folder = union(roundRect(0.36, 0.33, 0.12, 0.06, 0.04), roundRect(0.5, 0.555, 0.27, 0.2, 0.055));
+  const mark =
+    glyph === 'bridge'
+      ? union(capsule(0.32, 0.52, 0.68, 0.52, 0.024), arch(0.5, 0.685, 0.165, 0.128), capsule(0.353, 0.6, 0.353, 0.685, 0.0185), capsule(0.647, 0.6, 0.647, 0.685, 0.0185))
+      : arrows(0.51, 0.625, 0.375, 0.625, 0.025, 0.08);
+  return [bg, { shape: folder, paint: WHITE }, { shape: mark, paint: BLUE }];
+}
 
 // Small, full-bleed colored icon for the Windows tray.
-const winTray = (shift) => [
-  { shape: roundRect(0.5, 0.5, 0.5, 0.5, 0.22), paint: background(shift) },
-  { shape: roundRect(0.33, 0.22, 0.15, 0.08, 0.05), paint: solid(LAVENDER) },
-  { shape: roundRect(0.5, 0.38, 0.38, 0.2, 0.07), paint: solid(LAVENDER) },
-  { shape: roundRect(0.5, 0.6, 0.42, 0.28, 0.08), paint: solid('#FFFFFF') },
-  { shape: arrows(0.52, 0.7, 0.28, 0.7, 0.05, 0.14), paint: solid(INDIGO) },
-];
+function winTray({ glyph, hue }) {
+  const bg = { shape: roundRect(0.5, 0.5, 0.5, 0.5, 0.22), paint: background(hue) };
+  if (glyph === 'layered') {
+    return [
+      bg,
+      { shape: roundRect(0.33, 0.22, 0.15, 0.08, 0.05), paint: solid(LAVENDER) },
+      { shape: roundRect(0.5, 0.38, 0.38, 0.2, 0.07), paint: solid(LAVENDER) },
+      { shape: roundRect(0.5, 0.6, 0.42, 0.28, 0.08), paint: WHITE },
+      { shape: arrows(0.52, 0.7, 0.28, 0.7, 0.05, 0.14), paint: BLUE },
+    ];
+  }
+  const folder = union(roundRect(0.3, 0.21, 0.18, 0.09, 0.06), roundRect(0.5, 0.58, 0.43, 0.33, 0.09));
+  const mark =
+    glyph === 'bridge'
+      ? union(capsule(0.22, 0.5, 0.78, 0.5, 0.055), arch(0.5, 0.84, 0.3, 0.2))
+      : arrows(0.5, 0.7, 0.27, 0.73, 0.055, 0.15);
+  return [bg, { shape: folder, paint: WHITE }, { shape: mark, paint: BLUE }];
+}
 
-// macOS menu bar template: black folder, arrows cut out (only alpha matters).
-const macTray = [
-  { shape: roundRect(0.3, 0.2, 0.17, 0.09, 0.06), paint: solid('#000000') },
-  { shape: roundRect(0.5, 0.55, 0.45, 0.33, 0.09), paint: solid('#000000') },
-  { shape: arrows(0.47, 0.67, 0.25, 0.73, 0.055, 0.15), erase: true },
-];
+// macOS menu bar template: black folder, the mark cut out (only alpha matters).
+function macTray({ glyph }) {
+  const mark =
+    glyph === 'bridge'
+      ? union(capsule(0.2, 0.47, 0.8, 0.47, 0.06), arch(0.5, 0.82, 0.3, 0.19))
+      : arrows(0.47, 0.67, 0.25, 0.73, 0.055, 0.15);
+  return [
+    { shape: roundRect(0.3, 0.2, 0.17, 0.09, 0.06), paint: solid('#000000') },
+    { shape: roundRect(0.5, 0.55, 0.45, 0.33, 0.09), paint: solid('#000000') },
+    { shape: mark, erase: true },
+  ];
+}
 
 const root = path.join(__dirname, '..');
 
@@ -196,19 +239,28 @@ function write(rel, png) {
 }
 
 if (process.argv.includes('--variants')) {
-  for (const shift of [0, -16, -30, 18]) {
-    write(`dev/sandbox/icon-variants/folderbridge-hue${shift}.png`, render(256, appIcon(shift), 6));
-    write(`dev/sandbox/icon-variants/tray-hue${shift}.png`, render(32, winTray(shift), 8));
+  const variants = {
+    v1: { glyph: 'layered', hue: -16 },
+    v2: { glyph: 'solid', hue: -16 },
+    v3: { glyph: 'solid', hue: -40 },
+    v4: { glyph: 'bridge', hue: -16 },
+    v5: { glyph: 'bridge', hue: -40 },
+    v6: { glyph: 'layered', hue: -45 },
+  };
+  for (const [name, look] of Object.entries(variants)) {
+    write(`dev/sandbox/icon-variants/${name}.png`, render(256, appIcon(look), 6));
+    write(`dev/sandbox/icon-variants/${name}-tray.png`, render(32, winTray(look), 8));
+    write(`dev/sandbox/icon-variants/${name}-mac.png`, render(32, macTray(look), 8));
   }
 } else {
   const outputs = [
-    ['build/icon.png', 1024, appIcon(HUE_SHIFT), 3],
-    ['assets/icon.png', 256, appIcon(HUE_SHIFT), 6],
-    ['assets/icon-128.png', 128, appIcon(HUE_SHIFT), 8],
-    ['assets/tray.png', 16, winTray(HUE_SHIFT), 8],
-    ['assets/tray@2x.png', 32, winTray(HUE_SHIFT), 8],
-    ['assets/trayTemplate.png', 16, macTray, 8],
-    ['assets/trayTemplate@2x.png', 32, macTray, 8],
+    ['build/icon.png', 1024, appIcon(ICON), 3],
+    ['assets/icon.png', 256, appIcon(ICON), 6],
+    ['assets/icon-128.png', 128, appIcon(ICON), 8],
+    ['assets/tray.png', 16, winTray(ICON), 8],
+    ['assets/tray@2x.png', 32, winTray(ICON), 8],
+    ['assets/trayTemplate.png', 16, macTray(ICON), 8],
+    ['assets/trayTemplate@2x.png', 32, macTray(ICON), 8],
   ];
   for (const [rel, size, layers, samples] of outputs) write(rel, render(size, layers, samples));
 }
