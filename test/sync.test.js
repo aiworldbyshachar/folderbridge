@@ -309,6 +309,33 @@ test('names: NFD names from a Mac stay one file; Windows-only problems are flagg
   }
 });
 
+test('Windows: a rename to a name Windows refuses trashes the old name and flags the new one', async () => {
+  const base = fs.mkdtempSync(path.join(require('os').tmpdir(), 'folderbridge-winrename-'));
+  const b = makeDevice(base, 'B', { code: generateCode(), platform: 'win32' });
+  b.write('plan copy.txt', 'same content');
+  try {
+    await b.start();
+    await waitFor(() => b.getStatus().files === 1, 10000, 'file indexed');
+    const local = b.index.get('plan copy.txt');
+    const peer = '99999999-9999-4999-8999-999999999999';
+    const common = { by: peer, byName: 'Mac', ts: Date.now() };
+    // On the Mac "plan copy.txt" was renamed to "plan? copy.txt".
+    b.receive(
+      [
+        { ...b.index.toWire(local), ...common, deleted: true, vv: { ...local.vv, [peer]: 1 } },
+        { type: 'file', path: 'plan? copy.txt', size: local.size, mtime: local.mtime, hash: local.hash, vv: { [peer]: 2 }, ...common },
+      ],
+      { replica: peer, name: 'Mac' }
+    );
+    await waitFor(() => !b.exists('plan copy.txt'), 10000, 'old name gone');
+    assert.ok(b.getTrash().some((t) => t.path === 'plan copy.txt'), 'old name is in the trash');
+    await waitFor(() => b.getProblems().some((p) => p.type === 'windows-name' && p.path === 'plan? copy.txt'), 5000, 'new name flagged');
+    assert.strictEqual(b.needs.size, 1, 'only the flagged name is left waiting');
+  } finally {
+    await stopAll(b);
+  }
+});
+
 test('trash restore brings a file back on every computer', async () => {
   const { a, b } = await startPair();
   try {

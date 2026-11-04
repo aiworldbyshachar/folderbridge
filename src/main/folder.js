@@ -1030,10 +1030,17 @@ class FolderSync extends EventEmitter {
 
   // ---------- renames ----------
 
+  // A name this computer can write (Windows refuses some Mac names).
+  _writable(key) {
+    return this.platform !== 'win32' || !names.windowsNameProblem(key);
+  }
+
   // The other computer deleted `key`; did it reappear under another name?
+  // A new name this computer can't write isn't a rename here: the old file
+  // goes to the trash and the new name waits as a problem to fix.
   _renameTarget(key, local) {
     for (const k of this.needHashes.get(local.hash) || []) {
-      if (k === key || this.busy.has(k)) continue;
+      if (k === key || this.busy.has(k) || !this._writable(k)) continue;
       const c = (this.needs.get(k) || [])[0];
       if (!c || c.rec.deleted || c.rec.hash !== local.hash) continue;
       const there = this.index.get(k);
@@ -1062,9 +1069,10 @@ class FolderSync extends EventEmitter {
     if (c.rec.deleted) {
       const local = this.index.get(key);
       if (!local || local.deleted || local.type !== 'file') return null;
-      for (const k of this.needHashes.get(local.hash) || []) if (k !== key) return k;
+      for (const k of this.needHashes.get(local.hash) || []) if (k !== key && this._writable(k)) return k;
       return null;
     }
+    if (!this._writable(key)) return null;
     for (const k of this.index.keysWithHash(c.rec.hash)) {
       const other = (this.needs.get(k) || [])[0];
       if (k !== key && other && other.rec.deleted) return k;
