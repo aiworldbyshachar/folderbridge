@@ -105,7 +105,8 @@ Issues and pull requests are welcome. Good first ideas: several synced folders, 
 
 ## More free tools
 
-[ClipBridge](https://github.com/aiworldbyshachar/clipbridge) - copy on your Mac, paste on your PC, with one shared clipboard history.
+- [ClipBridge](https://github.com/aiworldbyshachar/clipbridge) - copy on your Mac, paste on your PC, with one shared clipboard history.
+- [KeyBridge](https://github.com/aiworldbyshachar/keybridge) - press it once, it's typed: text shortcuts and hotkeys with left and right modifier keys, on every computer you sign in to.
 
 ## Licence
 

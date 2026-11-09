@@ -99,7 +99,8 @@
     details summary { cursor: pointer; font-weight: 600; font-size: 17px; }
     details p { margin: 8px 0 0; color: var(--muted); }
 
-    .more { display: flex; align-items: center; gap: 18px; padding: 18px 22px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); color: var(--ink); text-decoration: none; max-width: 560px; }
+    .more-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 900px; }
+    .more { display: flex; align-items: center; gap: 18px; padding: 18px 22px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); color: var(--ink); text-decoration: none; }
     .more:hover { border-color: var(--accent); }
     .more img { width: 56px; height: 56px; flex: none; }
     .more b { display: block; font-size: 18px; }
@@ -116,7 +117,7 @@
     .all { margin: 14px 0 0; font-weight: 600; }
 
     @media (max-width: 820px) {
-      .hero, .steps, .feature, .install { grid-template-columns: 1fr; }
+      .hero, .steps, .feature, .install, .more-list { grid-template-columns: 1fr; }
       .feature:nth-of-type(even) .shot { order: 0; }
       .hero { padding-top: 18px; }
     }
@@ -240,7 +241,10 @@
     <section id="more">
       <h2>More free tools</h2>
       <p class="sub">Small tools that make everyday work easier, by AI World by Shachar.</p>
-      <a class="more" href="https://aiworldbyshachar.github.io/clipbridge/"><img src="media/clipbridge-128.png" alt=""><div><b>ClipBridge</b><span>Copy on your Mac, paste on your PC - with one shared clipboard history.</span></div></a>
+      <div class="more-list">
+        <a class="more" href="https://aiworldbyshachar.github.io/clipbridge/"><img src="media/clipbridge-128.png" alt=""><div><b>ClipBridge</b><span>Copy on your Mac, paste on your PC - with one shared clipboard history.</span></div></a>
+        <a class="more" href="https://aiworldbyshachar.github.io/keybridge/"><img src="media/keybridge-128.png" alt=""><div><b>KeyBridge</b><span>Press it once, it's typed - text shortcuts with left and right keys, on every computer you sign in to.</span></div></a>
+      </div>
       <p class="all"><a href="https://aiworldbyshachar.github.io/">All my free tools →</a></p>
     </section>
 

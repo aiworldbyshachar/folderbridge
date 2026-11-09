@@ -59,6 +59,7 @@ npm test
 
 ## עוד כלים חינמיים
 
-[ClipBridge](https://github.com/aiworldbyshachar/clipbridge): מעתיקים במק, מדביקים בפיסי, עם היסטוריית העתקות משותפת.
+- [ClipBridge](https://github.com/aiworldbyshachar/clipbridge): מעתיקים במק, מדביקים בפיסי, עם היסטוריית העתקות משותפת.
+- [KeyBridge](https://github.com/aiworldbyshachar/keybridge): לוחצים פעם אחת והטקסט מוקלד. קיצורי מקלדת עם הבחנה בין מקשי ימין ושמאל, בכל מחשב שמתחברים אליו.
 
 </div>
